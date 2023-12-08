@@ -1,16 +1,20 @@
-const {checkAdmin, addWarn} = require("../corbeille/functions");
-
-
+const {checkAdmin, addWarn, checkWarn} = require("../functions");
 
 
 exports.run = async (client, interaction) => {
-    let isUserAdmin = checkAdmin(client, interaction);
+    const isUserAdmin = checkAdmin(client, interaction);
+    const member_to_warn = interaction.options.getMentionable("membre");
+    const reason = interaction.options.getString("raison");
+    const nb_warn = checkWarn(member_to_warn.id) + 1;
+
     // isUserAdmin = true --> admin
     // isUserAdmin = false --> pas admin
-    // isUserAdmin ? addWarn(69,22,"Horrible","87654321","42","54") : await interaction.reply("Vous n'avez pas le bon rôle");
 
-    console.log(interaction.user.id);
-
-
-    //isUserAdmin ? addWarn(interaction.guildId, interaction.user)
+    if (isUserAdmin) {
+        addWarn(interaction.guildId, member_to_warn.id, reason, Date.now(), nb_warn, interaction.member.id);
+        console.log(member_to_warn);
+        await interaction.reply(`L'utilisateur ${member_to_warn.user.username} a été averti`);
+    } else {
+        await interaction.reply("Vous n'avez pas accès à cette commande");
+    }
 };
