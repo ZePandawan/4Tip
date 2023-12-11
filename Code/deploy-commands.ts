@@ -14,6 +14,8 @@ const commands = [
         .addStringOption(option =>
             option.setName('raison')
                   .setDescription('Raison du warn')),
+    new SlashCommandBuilder().setName('pokemon')
+        .setDescription('Attrapez les tous !'),
 ]
     .map(command => command.toJSON());
 

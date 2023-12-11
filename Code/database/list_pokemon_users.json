@@ -1,0 +1,13 @@
+{
+  "pokemon_list": [
+    {
+      "user_id" : "0",
+      "pokemons" : [
+        {
+          "pokemon_id": "",
+          "quantity": 0
+        }
+      ]
+    }
+  ]
+}
