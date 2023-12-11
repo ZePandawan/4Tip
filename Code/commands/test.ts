@@ -1,4 +1,4 @@
-const {checkAdmin} = require("../corbeille/functions")
+const {checkAdmin} = require("../functions")
 
 
 exports.run = async (client, interaction) => {

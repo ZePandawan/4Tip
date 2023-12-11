@@ -3,7 +3,7 @@
 const { Client, Intents, GatewayIntentBits, Collection, MessageMentions, GuildMemberManager, EmbedBuilder, Activity, ActivityType} = require('discord.js');
 const { token } = require("../Config/config.json");
 const fs = require("fs");
-const {checkAdmin} = require("./corbeille/functions")
+const {checkAdmin, getChannelId} = require("./functions")
 
 
 const statuses = [
@@ -59,8 +59,6 @@ client.once('ready',() => {
 // FR : C'est ici que l'on va avoir le code des différentes commandes qui sont utilisées par le bot
 // EN : It's the place where we can find the code of differents commands which are used by the botw
 client.on('interactionCreate', async interaction => {
-
-
     if (!interaction.isChatInputCommand()) return;
 
     const { commandName } = interaction;
@@ -73,6 +71,18 @@ client.on('interactionCreate', async interaction => {
         client.commands.get(commandName).run(client, interaction).catch(console.error);
     }
 });
+
+client.on('guildMemberAdd', member => {
+    const idChannel = getChannelId("welcome",member.guild.id);
+    //console.log(idChannel);
+    member.guild.channels.cache.find(i => i.id == idChannel).send(`Bienvenue dans la meute <@${member.user.id}> !`);
+})
+
+client.on('guildMemberRemove', member =>{
+    const idChannel = getChannelId("welcome",member.guild.id);
+    //console.log(idChannel);
+    member.guild.channels.cache.find(i => i.id == idChannel).send(`${member.user.displayName} a décidé de s'en aller ...`);
+})
 
 
 // FR : Connexion à Discord grâce au token de notre client

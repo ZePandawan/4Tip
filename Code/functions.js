@@ -58,4 +58,20 @@ function checkWarn(user_id){
     return highestWarns;
 }
 
-module.exports = {checkAdmin, addWarn, checkWarn};
+function getChannelId(channel_type, guildId) {
+    let channelId = "";
+    switch (channel_type) {
+        case "welcome":
+            const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+            const channelData = data.id_channels.find(channel => channel.guild_id === guildId);
+            if (channelData) {
+                channelId = channelData.welcome_id;
+            }
+            break;
+        default:
+            break;
+    }
+    return channelId;
+}
+
+module.exports = {checkAdmin, addWarn, checkWarn,getChannelId};
