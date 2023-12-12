@@ -51,7 +51,7 @@ client.once('ready',() => {
 
     setInterval(() => {
         let randomStatus = statuses[count_status];
-        count_status !== statuses.length ? count_status++ : count_status = 0;
+        count_status !== statuses.length-1 ? count_status++ : count_status = 0;
         client.user.setActivity(randomStatus);
     }, 30000);
 });
