@@ -8,7 +8,8 @@ const {checkAdmin, getChannelId} = require("./functions")
 
 const statuses = [
     { name: "MazaStream.fr", type: ActivityType.Watching },
-    { name: "Twitch ZRadio", type: ActivityType.Listening }
+    { name: "twitch.tv/russfx_", type: ActivityType.Watching },
+    { name: "twitch.tv/zepandawan", type: ActivityType.Watching }
 ];
 let count_status = 0;
 
@@ -50,7 +51,7 @@ client.once('ready',() => {
 
     setInterval(() => {
         let randomStatus = statuses[count_status];
-        count_status === 0 ? count_status = 1 : count_status = 0;
+        count_status !== statuses.length ? count_status++ : count_status = 0;
         client.user.setActivity(randomStatus);
     }, 30000);
 });
