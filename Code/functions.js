@@ -26,6 +26,7 @@ function checkAdmin(client, interaction) {
 
 const fs = require('fs');
 const dataFile = "./Code/database/4Tip.json";
+const pokemonFile = "./Code/database/list_pokemon_users.json";
 
 function addWarn(server_id, user_id, reason, timestamp, nb_warns, warner_id){
     const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
@@ -74,4 +75,78 @@ function getChannelId(channel_type, guildId) {
     return channelId;
 }
 
-module.exports = {checkAdmin, addWarn, checkWarn,getChannelId};
+function checkOrAddUserInPokemonDB(userId){
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
+    const isUser = data.pokemon_list.find(user => user.user_id === userId);
+    let result;
+    //isUser ? result = true : result = false;
+    if(!isUser){
+        const newUser = {
+            "user_id" : `${userId}`,
+            "pokemons": [],
+            "last_use": 0
+        }
+        data.pokemon_list.push(newUser);
+        const updatedData= JSON.stringify(data, null, 2);
+        fs.writeFileSync(pokemonFile, updatedData);
+    }
+}
+
+function checkTimestampPokemon(userId){
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
+    const actualTimestampInDB = data.pokemon_list.find(user => user.user_id === userId).last_use;
+    const result = actualTimestampInDB <  (Date.now()- 2 * 60 * 60 * 1000);
+    let remainingTime;
+    if(result){
+        remainingTime = 0;
+    }else{
+        remainingTime = 2 * 60 * 60 * 1000 - (Date.now() - actualTimestampInDB);
+    }
+    return {result, remainingTime};
+}
+
+function APIRequest(url) {
+    return new Promise((resolve, reject) => {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur de réseau (statut ${response.status})`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Les données sont récupérées avec succès, on les retourne
+                resolve(data);
+            })
+            .catch(error => {
+                // Gérer les erreurs de réseau ou de traitement des données
+                console.error('Erreur lors de la requête API:', error.message);
+                reject(error);
+            });
+    });
+}
+
+
+function AddPokemonToUser(userId, pokemonId){
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
+    const userData = data.pokemon_list.find(user => user.user_id === userId);
+    let pokemonDB = userData.pokemons.find(pokemon => pokemon.id === pokemonId);
+    console.log(pokemonDB);
+    if(pokemonDB)
+    {
+        pokemonDB.quantity += 1;
+    }
+    else{
+        let newPokemon = {
+            "id":pokemonId,
+            "quantity": 1
+        }
+        userData.pokemons.push(newPokemon);
+    }
+
+    userData.last_use = new Date().getTime();
+    const updatedData= JSON.stringify(data, null, 2);
+    fs.writeFileSync(pokemonFile, updatedData);
+}
+
+module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser};

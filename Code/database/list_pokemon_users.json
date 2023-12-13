@@ -1,13 +1,14 @@
 {
   "pokemon_list": [
     {
-      "user_id" : "0",
-      "pokemons" : [
+      "user_id": "421999801685508107",
+      "pokemons": [
         {
-          "pokemon_id": "",
-          "quantity": 0
+          "id": 578,
+          "quantity": 1
         }
-      ]
+      ],
+      "last_use": 1702477687030
     }
   ]
 }
