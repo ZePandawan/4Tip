@@ -7,15 +7,20 @@ const commands = [
         .setDescription('Only test for dev'),
     new SlashCommandBuilder().setName('warn')
         .setDescription('Admin : Mettre un avertissement à un membre')
-        .addMentionableOption(option => 
+        .addMentionableOption(option =>
             option.setName('membre')
-                  .setDescription('Membre à avertir')
-                  .setRequired(true))
+                .setDescription('Membre à avertir')
+                .setRequired(true))
         .addStringOption(option =>
             option.setName('raison')
-                  .setDescription('Raison du warn')),
+                .setDescription('Raison du warn')),
     new SlashCommandBuilder().setName('pokemon')
         .setDescription('Attrapez les tous !'),
+    new SlashCommandBuilder().setName('poke-inventory')
+        .setDescription('Regarde ton inventaire !')
+        .addNumberOption(option =>
+            option.setName('page')
+                .setDescription('Page de l\'inventaire à afficher')),
 ]
     .map(command => command.toJSON());
 

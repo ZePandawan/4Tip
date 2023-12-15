@@ -149,4 +149,9 @@ function AddPokemonToUser(userId, pokemonId){
     fs.writeFileSync(pokemonFile, updatedData);
 }
 
-module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser};
+function getUserPokemon(userId){
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
+    return data.pokemon_list.find(user => user.user_id === userId).pokemons;
+}
+
+module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser,getUserPokemon};

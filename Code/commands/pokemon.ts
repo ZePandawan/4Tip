@@ -30,7 +30,7 @@ exports.run = async (client, interaction) => {
         const pokeEmbed = new EmbedBuilder()
             .setColor(0xFF9900)
             .setTitle('POKEMON 4TIP')
-            .addFields({name: `Dresseur ${interaction.user.displayName}`, value: `Tu ne peux pas encore capturer un pokemon ! \nTemps restant : ${TsInDate.getHours()}h ${TsInDate.getMinutes()}min ${TsInDate.getSeconds()}s`})
+            .addFields({name: `Dresseur ${interaction.user.displayName}`, value: `Tu ne peux pas encore capturer un pokemon ! \nTemps restant : ${TsInDate.getHours()-1}h ${TsInDate.getMinutes()}min ${TsInDate.getSeconds()}s`})
             .setTimestamp()
             .setFooter({text: '4Tip', url: 'https://github.com/ZePandawan/4Tip'});
         await interaction.reply({embeds: [pokeEmbed]});
