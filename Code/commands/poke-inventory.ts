@@ -28,12 +28,15 @@ exports.run = async (client, interaction) => {
                 .setTitle('POKEMON 4TIP')
                 .setDescription(`Page ${page}/${total_pages}`)
                 .addFields({name: `Inventaire de ${interaction.user.displayName}`, value: `${inventory}`})
+                .addFields({name: "Pokedex :", value:`${pokeList.length}/1018`})
                 .setTimestamp()
                 .setFooter({text: '4Tip'});
             await interaction.reply({embeds: [pokeEmbed]});
         }
     } else {
-        for (let i = 0; i < 10; i++) {
+        let arraySize = 0;
+        pokeList.length < 10 ? arraySize = pokeList.length : arraySize = 10;
+        for (let i = 0; i < arraySize; i++) {
             const api_result = await APIRequest(`https://tyradex.vercel.app/api/v1/pokemon/${pokeList[i].id}`).then(data => {
                 return `${data.name.fr} x${pokeList[i].quantity}`;
             });
@@ -44,6 +47,7 @@ exports.run = async (client, interaction) => {
             .setTitle('POKEMON 4TIP')
             .setDescription(`Page 1/${total_pages}`)
             .addFields({name: `Inventaire de ${interaction.user.displayName}`, value: `${inventory}`})
+            .addFields({name: "Pokedex :", value:`${pokeList.length}/1018`})
             .setTimestamp()
             .setFooter({text: '4Tip'});
         await interaction.reply({embeds: [pokeEmbed]});
