@@ -11,8 +11,8 @@
   "dependencies": {
     "discord": "^0.8.2",
     "discord.js": "^14.12.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "twitch": "^4.6.7"
   },
-  "keywords": [],
-  "devDependencies": {}
+  "keywords": []
 }

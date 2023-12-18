@@ -61,14 +61,18 @@ function checkWarn(user_id){
 
 function getChannelId(channel_type, guildId) {
     let channelId = "";
+    const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+    const channelData = data.id_channels.find(channel => channel.guild_id === guildId);
     switch (channel_type) {
         case "welcome":
-            const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
-            const channelData = data.id_channels.find(channel => channel.guild_id === guildId);
             if (channelData) {
                 channelId = channelData.welcome_id;
             }
             break;
+        case "stream":
+            if (channelData) {
+                channelId = channelData.stream_id;
+            }
         default:
             break;
     }
