@@ -1,0 +1,37 @@
+{
+  "warns": [
+    {
+      "server_id": "1006164236013154344",
+      "user_id": "1168280321754660955",
+      "reason": "null",
+      "timestamp": "1702287928680",
+      "nb_warns": "1",
+      "warner_id": "421999801685508107"
+    },
+    {
+      "server_id": "1006164236013154344",
+      "user_id": "1168280321754660955",
+      "reason": "null",
+      "timestamp": "1702287939931",
+      "nb_warns": "2",
+      "warner_id": "421999801685508107"
+    }
+  ],
+  "id_channels": [
+    {
+      "guild_id": "1006164236013154344",
+      "welcome_id": "1006164236709400668",
+      "stream_id": "1136560809892397166"
+    }
+  ],
+  "streamer_notif": [
+    {
+      "streamerName": "russfx_",
+      "isStreaming": 0
+    },
+    {
+      "streamerName": "doubledammit",
+      "isStreaming": 1
+    }
+  ]
+}

@@ -154,4 +154,33 @@ function getUserPokemon(userId){
     return data.pokemon_list.find(user => user.user_id === userId).pokemons;
 }
 
-module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser,getUserPokemon};
+function checkDatabaseExist(guildId){
+    const fileName = `./Code/database/${guildId}.json`;
+    return fs.existsSync(fileName);
+}
+
+// Creation de la base de données JSON pour le serveur
+function createDatabase(guildId){
+    const exists = checkDatabaseExist(guildId);
+    if(!exists){
+        
+        const data = {
+            warns: [],
+            channels: [],
+            streamNotif: []
+        }
+        
+        //Enregistrer dans un fichier JSON qui a la nom de la guilde
+        const fileName = `./Code/database/${guildId}.json`;
+        const jsonData = JSON.stringify(data, null, 2);
+        fs.writeFileSync(fileName, jsonData);
+        console.log(`Database for guild ${guildId} created`);
+    }
+    else{
+        console.log(`Database for guild ${guildId} already exists`);
+    }
+}
+
+
+
+module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser,getUserPokemon, createDatabase};
