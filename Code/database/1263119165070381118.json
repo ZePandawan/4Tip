@@ -1,6 +1,10 @@
 {
   "warns": [],
-  "channels": [],
+  "channels": [
+    {
+      "welcome": "1263119166303502360"
+    }
+  ],
   "streamNotif": [
     {
       "id": "274356876",
