@@ -1,37 +1,28 @@
 const fs = require("fs");
 
 exports.run = async (client, interaction) => {
-    // Récupération des options
     const channel = interaction.options.getChannel("channel");
     const type = interaction.options.getString("type");
     const guildId = interaction.guildId;
 
-    // Ouverture de la BDD
     const dbFile = `./Code/database/${guildId}.json`;
     const data = JSON.parse(fs.readFileSync(dbFile, "utf-8"));
 
-    // Vérification du type de salon
-    if(channel.type !== 0){
-        interaction.reply("Le salon doit être un salon textuel !");
-        return;
+    // Vérifiez si un objet dans "channels" existe déjà
+    let channelsData = data.channels[0];
+
+    if (!channelsData) {
+        // Si aucun objet, créez-en un nouveau
+        channelsData = {};
+        data.channels = [channelsData];
     }
 
-    // Vérification de l'existence du salon dans la BDD
-    const channelExistIndex = data.channels.findIndex(channel => channel[type] );
+    // Ajoutez ou mettez à jour le type de channel dans l'objet existant
+    channelsData[type] = channel.id;
 
-    // Si le salon existe, on le met à jour, sinon on le crée
-    if(channelExistIndex !== -1){
-        data.channels[channelExistIndex][type] = channel.id;
-    }else{
-        const channelData = {
-            [type]: channel.id
-        };
-        data.channels.push(channelData);
-    }
-
-    // Sauvegarde des données
+    // Écrivez les modifications dans le fichier
     const updatedData = JSON.stringify(data, null, 2);
     fs.writeFileSync(dbFile, updatedData);
 
     interaction.reply(`Le salon ${channel} a bien été défini comme salon ${type} !`);
-}
+};
