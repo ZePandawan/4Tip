@@ -6,6 +6,7 @@ const fs = require("fs");
 const {checkAdmin, getChannelId, createDatabase} = require("./functions");
 const { StaticAuthProvider } = require('@twurple/auth');
 const { ApiClient } = require('@twurple/api');
+const { checkStreamerStatus } = require('./check-streamer-status');
 
 
 const statuses = [
@@ -44,7 +45,9 @@ client.once('ready',() => {
     //const authProvider = new StaticAuthProvider(twitchClientId, twitchClientSecret);
     //const apiClient = new ApiClient({ authProvider });
 
-
+    setInterval(() => {
+        checkStreamerStatus(client);
+    }, 10000);
     
 
 
@@ -127,6 +130,11 @@ client.on('interactionCreate', async interaction => {
     if(client.commands.has(commandName)){
         client.commands.get(commandName).run(client, interaction).catch(console.error);
     }
+});
+
+// Dès que le bot rejoint un serveur, on crée la base de données
+client.on('guildCreate', guild => {
+    createDatabase(guild.id);
 });
 
 

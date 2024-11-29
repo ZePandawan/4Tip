@@ -2,7 +2,9 @@
   "warns": [],
   "channels": [
     {
-      "welcome": "1263119166303502360"
+      "welcome": "1263119166303502360",
+      "stream": "1263119166303502360",
+      "leave": "1263119166303502360"
     }
   ],
   "streamNotif": [
@@ -15,6 +17,16 @@
       "id": "232799812",
       "streamerName": "zepandawan",
       "isStreaming": false
+    },
+    {
+      "id": "27115917",
+      "streamerName": "Kamet0",
+      "isStreaming": false
+    },
+    {
+      "id": "134931596",
+      "streamerName": "ChezBubulle",
+      "isStreaming": true
     }
   ]
 }

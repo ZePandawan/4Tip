@@ -8,26 +8,21 @@ exports.run = async (client, interaction) => {
     const dbFile = `./Code/database/${guildId}.json`;
     const data = JSON.parse(fs.readFileSync(dbFile, "utf-8"));
 
-    /*if(!channel.isText()){
-        interaction.reply("Le salon doit être un salon textuel !");
-        return;
-    }*/
+    // Vérifiez si un objet dans "channels" existe déjà
+    let channelsData = data.channels[0];
 
-    const channelExistIndex = data.channels.findIndex(channel => channel[type] );
-    if(channelExistIndex !== -1){
-        data.channels[channelExistIndex][type] = channel.id;
-    }else{
-        const channelData = {
-            [type]: channel.id
-        };
-        data.channels.push(channelData);
+    if (!channelsData) {
+        // Si aucun objet, créez-en un nouveau
+        channelsData = {};
+        data.channels = [channelsData];
     }
 
+    // Ajoutez ou mettez à jour le type de channel dans l'objet existant
+    channelsData[type] = channel.id;
+
+    // Écrivez les modifications dans le fichier
     const updatedData = JSON.stringify(data, null, 2);
     fs.writeFileSync(dbFile, updatedData);
 
-
-    //console.log(channelData);
     interaction.reply(`Le salon ${channel} a bien été défini comme salon ${type} !`);
-
-}
+};
