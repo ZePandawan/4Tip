@@ -76,6 +76,16 @@ const commands = [
                     { name: 'SOLO/DUO', value: 'solo' },
                     { name: 'FLEX', value: 'flex' }
                 )
+                .setRequired(true)),
+    new SlashCommandBuilder().setName('lol-game-stats')
+        .setDescription('Montre tes 5 derniers matchs sur League of Legends')
+        .addStringOption(option =>
+            option.setName('pseudo')
+                .setDescription('Pseudo du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('Tag du joueur')
                 .setRequired(true))
 ]
     .map(command => command.toJSON());
