@@ -59,6 +59,24 @@ const commands = [
                 .setRequired(true))
         //.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
+    new SlashCommandBuilder().setName('lol-stats')
+        .setDescription('Montre tes stats RANKED sur League of Legends')
+        .addStringOption(option =>
+            option.setName('pseudo')
+                .setDescription('Pseudo du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('Tag du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('type')
+                .setDescription('Choix entre SOLO/DUO ou FLEX')
+                .addChoices(
+                    { name: 'SOLO/DUO', value: 'solo' },
+                    { name: 'FLEX', value: 'flex' }
+                )
+                .setRequired(true))
 ]
     .map(command => command.toJSON());
 
