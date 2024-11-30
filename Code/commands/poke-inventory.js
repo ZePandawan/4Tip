@@ -6,12 +6,12 @@ exports.run = async (client, interaction) => {
     const pokeList = getUserPokemon(interaction.user.id);
     const page = interaction.options.getNumber("page");
     let inventory = "";
-    console.log(pokeList.length);
     const page_size = 10;
     const start_index = (page - 1) * page_size;
     let end_index = 0;
-    pokeList.length < start_index + page_size ? end_index = pokeList.length : end_index = start_index + page_size;
+    pokeList.length < start_index + page_size ? end_index = pokeList.length: end_index = start_index + page_size;
     const total_pages = Math.ceil(pokeList.length / page_size);
+
 
     if (page) {
         if (page < 1 || page > total_pages) {

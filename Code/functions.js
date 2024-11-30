@@ -28,10 +28,10 @@ const fs = require('fs');
 const dataFile = "./Code/database/4Tip.json";
 const pokemonFile = "./Code/database/list_pokemon_users.json";
 
-function addWarn(server_id, user_id, reason, timestamp, nb_warns, warner_id){
+function addWarn(guildId, user_id, reason, timestamp, nb_warns, warner_id){
+    const dataFile = `./Code/database/${guildId}.json`;
     const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
     let newWarn = {
-        "server_id": `${server_id}`,
         "user_id": `${user_id}`,
         "reason": `${reason}`,
         "timestamp": `${timestamp}`,
@@ -45,8 +45,9 @@ function addWarn(server_id, user_id, reason, timestamp, nb_warns, warner_id){
 }
 
 
-function checkWarn(user_id){
+function checkWarn(user_id, guildId){
     let highestWarns = 0;
+    const dataFile = `./Code/database/${guildId}.json`;
     const data = JSON.parse(fs.readFileSync(dataFile, "utf-8"));
     for (let i = 0; i < data.warns.length; i++) {
         const warn = data.warns[i];

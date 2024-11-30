@@ -3,18 +3,17 @@ const { REST } = require("@discordjs/rest");
 const { clientId,  guildId, token } = require('../Config/config.json');
 
 const commands = [
-    /*
-    new SlashCommandBuilder().setName('test')
-        .setDescription('Only test for dev'),
     new SlashCommandBuilder().setName('warn')
-        .setDescription('Admin : Mettre un avertissement à un membre')
-        .addMentionableOption(option =>
-            option.setName('membre')
-                .setDescription('Membre à avertir')
-                .setRequired(true))
+    .setDescription('Admin : Mettre un avertissement à un membre')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .addMentionableOption(option =>
+        option.setName('membre')
+        .setDescription('Membre à avertir')
+        .setRequired(true))
         .addStringOption(option =>
             option.setName('raison')
-                .setDescription('Raison du warn')),
+            .setDescription('Raison du warn')),
+    
     new SlashCommandBuilder().setName('pokemon')
         .setDescription('Attrapez les tous !'),
     new SlashCommandBuilder().setName('poke-inventory')
@@ -22,8 +21,8 @@ const commands = [
         .addNumberOption(option =>
             option.setName('page')
                 .setDescription('Page de l\'inventaire à afficher'))                
-    */
-   new SlashCommandBuilder().setName('add-streamer')
+    ,
+    new SlashCommandBuilder().setName('add-streamer')
         .setDescription('Ajouter un streamer à la liste des streamers à suivre')
         .addStringOption(option =>
             option.setName('pseudo')
