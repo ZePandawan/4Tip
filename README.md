@@ -35,6 +35,7 @@ Un bot Discord complet et personnalisable pour la gestion de serveurs et les int
 
 ## Arborescence du code 
 
+```
 .
 ├── Code/
 │   ├── commands/
@@ -53,6 +54,7 @@ Un bot Discord complet et personnalisable pour la gestion de serveurs et les int
 ├── package-lock.json
 ├── package.json
 └── README.md
+```
 
 ---
 
