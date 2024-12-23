@@ -1,8 +1,17 @@
 const fs = require('fs');
+const cooldowns = new Map();  
 
 function addXP(userId, guildId, client) {
     const dataFile = `./Code/database/${guildId}.json`;
     const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
+
+    if (cooldowns.has(userId)) {
+        const lastMessage = cooldowns.get(userId);
+        if (Date.now() - lastMessage < 30000) return; // 1 minute de cooldown
+    }
+
+    cooldowns.set(userId, Date.now());
+
     if(data.xp === undefined){
         data.xp = [];
     }
