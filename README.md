@@ -122,3 +122,7 @@ Les contributions sont les bienvenues ! Ouvrez une issue ou soumettez une pull r
 - **GitHub** : [ZePandawan](https://github.com/ZePandawan)
 
 ---
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
