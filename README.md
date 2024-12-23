@@ -119,6 +119,6 @@ Les contributions sont les bienvenues ! Ouvrez une issue ou soumettez une pull r
 ## Auteur
 
 - **Discord** : [@kc_pandawan](https://discord.com/users/kc_pandawan)
-- **GitHub** : [Votre Profil GitHub](https://github.com/ZePandawan)
+- **GitHub** : [ZePandawan](https://github.com/ZePandawan)
 
 ---
