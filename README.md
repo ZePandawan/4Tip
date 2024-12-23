@@ -33,6 +33,12 @@ Un bot Discord complet et personnalisable pour la gestion de serveurs et les int
 
 ---
 
+## Documentation
+
+Si vous voulez en savoir plus sur les différentes commandes veuillez consulter [la documentation](https://zepandawan.github.io/4Tip/).
+
+---
+
 ## Arborescence du code 
 
 ```
