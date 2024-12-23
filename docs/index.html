@@ -13,105 +13,106 @@
     </header>
 
     <main>
+        <h2>Commandes Disponibles</h2>
+    
+        <!-- Commandes Admin -->
         <section class="command-section">
-            <h2>Commandes Disponibles</h2>
-
-            <div class="command">
-                <h3>/warn</h3>
-                <p><strong>Explication :</strong> Permet aux administrateurs de mettre un avertissement à un membre du serveur. L'avertissement peut être accompagné d'une raison.</p>
-                <h4>Paramètres :</h4>
+            <h3>Commandes Administrateur</h3>
+    
+            <div class="command admin">
+                <h4>/warn</h4>
+                <p><strong>Description :</strong> Mettre un avertissement à un membre.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>membre</strong> : Mentionnable (Membre à avertir) – Obligatoire</li>
-                    <li><strong>raison</strong> : String (Raison du warn) – Optionnel</li>
+                    <li><strong>membre</strong> : Mentionnez un membre (type : utilisateur)</li>
+                    <li><strong>raison</strong> : La raison du warn (type : chaîne de caractères, optionnel)</li>
                 </ul>
             </div>
-
-            <div class="command">
-                <h3>/pokemon</h3>
-                <p><strong>Explication :</strong> Cette commande permet de capturer un Pokémon.</p>
-                <h4>Paramètres :</h4>
+    
+            <div class="command admin">
+                <h4>/add-streamer</h4>
+                <p><strong>Description :</strong> Ajouter un streamer à la liste des streamers à suivre.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li>Aucun paramètre requis.</li>
+                    <li><strong>pseudo</strong> : Pseudo du streamer (type : chaîne de caractères, obligatoire)</li>
                 </ul>
             </div>
-
-            <div class="command">
-                <h3>/poke-inventory</h3>
-                <p><strong>Explication :</strong> Affiche l'inventaire du joueur contenant les Pokémon capturés.</p>
-                <h4>Paramètres :</h4>
+    
+            <div class="command admin">
+                <h4>/remove-streamer</h4>
+                <p><strong>Description :</strong> Supprimer un streamer de la liste des streamers à suivre.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>page</strong> : Number (Page de l'inventaire à afficher) – Optionnel</li>
+                    <li><strong>pseudo</strong> : Pseudo du streamer (type : chaîne de caractères, obligatoire)</li>
                 </ul>
             </div>
-
-            <div class="command">
-                <h3>/add-streamer</h3>
-                <p><strong>Explication :</strong> Ajoute un streamer à la liste des streamers suivis.</p>
-                <h4>Paramètres :</h4>
+    
+            <div class="command admin">
+                <h4>/create-rules</h4>
+                <p><strong>Description :</strong> Créer les règles du serveur.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>pseudo</strong> : String (Pseudo du streamer) – Obligatoire</li>
+                    <li><strong>role</strong> : Rôle à donner pour accepter les règles (type : rôle, obligatoire)</li>
                 </ul>
             </div>
-
+        </section>
+    
+        <!-- Commandes Utilisables par Tous -->
+        <section class="command-section">
+            <h3>Commandes Utilisateur</h3>
+    
             <div class="command">
-                <h3>/remove-streamer</h3>
-                <p><strong>Explication :</strong> Supprime un streamer de la liste des streamers suivis.</p>
-                <h4>Paramètres :</h4>
+                <h4>/pokemon</h4>
+                <p><strong>Description :</strong> Attrapez des Pokémons.</p>
+            </div>
+    
+            <div class="command">
+                <h4>/poke-inventory</h4>
+                <p><strong>Description :</strong> Voir votre inventaire de Pokémons.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>pseudo</strong> : String (Pseudo du streamer) – Obligatoire</li>
+                    <li><strong>page</strong> : Page de l'inventaire à afficher (type : nombre, optionnel)</li>
                 </ul>
             </div>
-
+    
             <div class="command">
-                <h3>/list-streamer</h3>
-                <p><strong>Explication :</strong> Affiche la liste des streamers suivis.</p>
-                <h4>Paramètres :</h4>
+                <h4>/list-streamer</h4>
+                <p><strong>Description :</strong> Afficher la liste des streamers à suivre.</p>
+            </div>
+    
+            <div class="command">
+                <h4>/define-channel</h4>
+                <p><strong>Description :</strong> Définir les salons pour les messages du bot.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li>Aucun paramètre requis.</li>
+                    <li><strong>type</strong> : Type de salon (choix entre `welcome`, `stream`, `leave`, `admin`) (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>channel</strong> : Salon à définir (type : salon, obligatoire)</li>
                 </ul>
             </div>
-
+    
             <div class="command">
-                <h3>/define-channel</h3>
-                <p><strong>Explication :</strong> Permet de définir un salon spécifique pour les messages du bot (bienvenue, stream, etc.).</p>
-                <h4>Paramètres :</h4>
+                <h4>/lol-stats</h4>
+                <p><strong>Description :</strong> Voir vos statistiques RANKED sur League of Legends.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>type</strong> : String (Type de salon) – Obligatoire (Valeurs possibles : `welcome`, `stream`, `leave`, `admin`)</li>
-                    <li><strong>channel</strong> : Channel (Salon à définir) – Obligatoire</li>
+                    <li><strong>pseudo</strong> : Pseudo du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>tag</strong> : Tag du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>type</strong> : Choix entre `SOLO/DUO` ou `FLEX` (type : chaîne de caractères, obligatoire)</li>
                 </ul>
             </div>
-
+    
             <div class="command">
-                <h3>/lol-stats</h3>
-                <p><strong>Explication :</strong> Affiche les statistiques RANKED d'un joueur sur League of Legends.</p>
-                <h4>Paramètres :</h4>
+                <h4>/lol-game-stats</h4>
+                <p><strong>Description :</strong> Voir vos 5 derniers matchs sur League of Legends.</p>
+                <p><strong>Paramètres :</strong></p>
                 <ul>
-                    <li><strong>pseudo</strong> : String (Pseudo du joueur) – Obligatoire</li>
-                    <li><strong>tag</strong> : String (Tag du joueur) – Obligatoire</li>
-                    <li><strong>type</strong> : String (Type de classement) – Obligatoire (Valeurs possibles : `solo`, `flex`)</li>
-                </ul>
-            </div>
-
-            <div class="command">
-                <h3>/lol-game-stats</h3>
-                <p><strong>Explication :</strong> Affiche les 5 derniers matchs d'un joueur sur League of Legends.</p>
-                <h4>Paramètres :</h4>
-                <ul>
-                    <li><strong>pseudo</strong> : String (Pseudo du joueur) – Obligatoire</li>
-                    <li><strong>tag</strong> : String (Tag du joueur) – Obligatoire</li>
-                </ul>
-            </div>
-
-            <div class="command">
-                <h3>/create-rules</h3>
-                <p><strong>Explication :</strong> Crée les règles du serveur et attribue un rôle aux membres acceptant ces règles.</p>
-                <h4>Paramètres :</h4>
-                <ul>
-                    <li><strong>role</strong> : Role (Rôle à attribuer) – Obligatoire</li>
+                    <li><strong>pseudo</strong> : Pseudo du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>tag</strong> : Tag du joueur (type : chaîne de caractères, obligatoire)</li>
                 </ul>
             </div>
         </section>
     </main>
+    
 
     <footer>
         <p>© 2024 4Tip Discord Bot - Développé par <a href="https://discord.com/users/kc_pandawan" target="_blank">@kc_pandawan</a></p>
