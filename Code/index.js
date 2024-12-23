@@ -5,6 +5,7 @@ const { token, twitchClientId, twitchClientSecret  } = require("../Config/config
 const fs = require("fs");
 const {checkAdmin, getChannelId, createDatabase} = require("./functions");
 const { checkStreamerStatus } = require('./check-streamer-status');
+const { addXP } = require('./add-xp');
 
 
 const statuses = [
@@ -101,6 +102,13 @@ client.on('interactionCreate', async interaction => {
 // EN : When the bot joins a server, we create the database
 client.on('guildCreate', guild => {
     createDatabase(guild.id);
+});
+
+
+
+client.on("messageCreate", async message => {
+    if (message.author.bot) return;
+    addXP(message.author.id, message.guild.id, client);
 });
 
 // FR : Connexion à Discord grâce au token de notre client

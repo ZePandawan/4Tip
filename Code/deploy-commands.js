@@ -50,7 +50,8 @@ const commands = [
                     { name: 'welcome', value: 'welcome' },
                     { name: 'stream', value: 'stream' },
                     { name: 'leave', value: 'leave' },
-                    { name: 'admin', value: 'admin' }
+                    { name: 'admin', value: 'admin' },
+                    { name: 'xp', value: 'xp' }
                 )
                 .setRequired(true))
         .addChannelOption(option =>
