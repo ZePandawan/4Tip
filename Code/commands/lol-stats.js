@@ -77,5 +77,6 @@ exports.run = async (client, interaction) => {
 
     } catch (err) {
         console.error("Une erreur s'est produite :", err);
+        await interaction.reply("Une erreur s'est produite lors de la récupération des données. Veuillez vérifier que le pseudo et le tag sont corrects (sensibles à la casse).");
     }
 };
