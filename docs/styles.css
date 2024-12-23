@@ -30,9 +30,9 @@ main {
 .admin h4{
     background-color: #3498db; 
     color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .command-section {
