@@ -55,6 +55,8 @@ Si vous voulez en savoir plus sur les différentes commandes veuillez consulter 
 │   └── index.js
 ├── Config/
 │   └── config.json
+├── docs/
+│   └── Fichiers HTML/CSS pour documentation
 ├── node_modules/
 ├── .gitignore
 ├── package-lock.json
