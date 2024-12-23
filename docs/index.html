@@ -1,1 +1,120 @@
-Test
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation 4Tip Discord Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Documentation 4Tip Discord Bot</h1>
+        <p>Un bot Discord complet et personnalisable pour la gestion de serveurs et les interactions communautaires.</p>
+    </header>
+
+    <main>
+        <section class="command-section">
+            <h2>Commandes Disponibles</h2>
+
+            <div class="command">
+                <h3>/warn</h3>
+                <p><strong>Explication :</strong> Permet aux administrateurs de mettre un avertissement à un membre du serveur. L'avertissement peut être accompagné d'une raison.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>membre</strong> : Mentionnable (Membre à avertir) – Obligatoire</li>
+                    <li><strong>raison</strong> : String (Raison du warn) – Optionnel</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/pokemon</h3>
+                <p><strong>Explication :</strong> Cette commande permet de capturer un Pokémon.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li>Aucun paramètre requis.</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/poke-inventory</h3>
+                <p><strong>Explication :</strong> Affiche l'inventaire du joueur contenant les Pokémon capturés.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>page</strong> : Number (Page de l'inventaire à afficher) – Optionnel</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/add-streamer</h3>
+                <p><strong>Explication :</strong> Ajoute un streamer à la liste des streamers suivis.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>pseudo</strong> : String (Pseudo du streamer) – Obligatoire</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/remove-streamer</h3>
+                <p><strong>Explication :</strong> Supprime un streamer de la liste des streamers suivis.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>pseudo</strong> : String (Pseudo du streamer) – Obligatoire</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/list-streamer</h3>
+                <p><strong>Explication :</strong> Affiche la liste des streamers suivis.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li>Aucun paramètre requis.</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/define-channel</h3>
+                <p><strong>Explication :</strong> Permet de définir un salon spécifique pour les messages du bot (bienvenue, stream, etc.).</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>type</strong> : String (Type de salon) – Obligatoire (Valeurs possibles : `welcome`, `stream`, `leave`, `admin`)</li>
+                    <li><strong>channel</strong> : Channel (Salon à définir) – Obligatoire</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/lol-stats</h3>
+                <p><strong>Explication :</strong> Affiche les statistiques RANKED d'un joueur sur League of Legends.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>pseudo</strong> : String (Pseudo du joueur) – Obligatoire</li>
+                    <li><strong>tag</strong> : String (Tag du joueur) – Obligatoire</li>
+                    <li><strong>type</strong> : String (Type de classement) – Obligatoire (Valeurs possibles : `solo`, `flex`)</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/lol-game-stats</h3>
+                <p><strong>Explication :</strong> Affiche les 5 derniers matchs d'un joueur sur League of Legends.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>pseudo</strong> : String (Pseudo du joueur) – Obligatoire</li>
+                    <li><strong>tag</strong> : String (Tag du joueur) – Obligatoire</li>
+                </ul>
+            </div>
+
+            <div class="command">
+                <h3>/create-rules</h3>
+                <p><strong>Explication :</strong> Crée les règles du serveur et attribue un rôle aux membres acceptant ces règles.</p>
+                <h4>Paramètres :</h4>
+                <ul>
+                    <li><strong>role</strong> : Role (Rôle à attribuer) – Obligatoire</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 4Tip Discord Bot - Développé par <a href="https://discord.com/users/kc_pandawan" target="_blank">@kc_pandawan</a></p>
+    </footer>
+</body>
+</html>
