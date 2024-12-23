@@ -27,7 +27,7 @@ main {
     padding: 20px;
 }
 
-.admin {
+.admin h4{
     background-color: #3498db; 
     color: white;
     border-radius: 10px;
@@ -48,7 +48,7 @@ main {
     margin-bottom: 20px;
 }
 
-.command h3 {
+.command h4 {
     background-color: #16a085;
     color: white;
     padding: 10px;
