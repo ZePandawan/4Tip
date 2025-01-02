@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation 4Tip Discord Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Documentation 4Tip Discord Bot</h1>
+        <p>Un bot Discord complet et personnalisable pour la gestion de serveurs et les interactions communautaires.</p>
+    </header>
+
+    <main>
+    
+        <!-- Commandes Admin -->
+        <section class="command-section">
+            <h3>Commandes Administrateur</h3>
+    
+            <div class="command admin">
+                <h4>/warn</h4>
+                <p><strong>Description :</strong> Mettre un avertissement à un membre.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>membre</strong> : Mentionnez un membre (type : utilisateur)</li>
+                    <li><strong>raison</strong> : La raison du warn (type : chaîne de caractères, optionnel)</li>
+                </ul>
+            </div>
+    
+            <div class="command admin">
+                <h4>/add-streamer</h4>
+                <p><strong>Description :</strong> Ajouter un streamer à la liste des streamers à suivre.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>pseudo</strong> : Pseudo du streamer (type : chaîne de caractères, obligatoire)</li>
+                </ul>
+            </div>
+    
+            <div class="command admin">
+                <h4>/remove-streamer</h4>
+                <p><strong>Description :</strong> Supprimer un streamer de la liste des streamers à suivre.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>pseudo</strong> : Pseudo du streamer (type : chaîne de caractères, obligatoire)</li>
+                </ul>
+            </div>
+    
+            <div class="command admin">
+                <h4>/create-rules</h4>
+                <p><strong>Description :</strong> Créer les règles du serveur.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>role</strong> : Rôle à donner pour accepter les règles (type : rôle, obligatoire)</li>
+                </ul>
+            </div>
+        </section>
+    
+        <!-- Commandes Utilisables par Tous -->
+        <section class="command-section">
+            <h3>Commandes Utilisateur</h3>
+    
+            <div class="command user">
+                <h4>/pokemon</h4>
+                <p><strong>Description :</strong> Attrapez des Pokémons.</p>
+            </div>
+    
+            <div class="command user">
+                <h4>/poke-inventory</h4>
+                <p><strong>Description :</strong> Voir votre inventaire de Pokémons.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>page</strong> : Page de l'inventaire à afficher (type : nombre, optionnel)</li>
+                </ul>
+            </div>
+    
+            <div class="command user">
+                <h4>/list-streamer</h4>
+                <p><strong>Description :</strong> Afficher la liste des streamers à suivre.</p>
+            </div>
+    
+            <div class="command user">
+                <h4>/define-channel</h4>
+                <p><strong>Description :</strong> Définir les salons pour les messages du bot.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>type</strong> : Type de salon (choix entre `welcome`, `stream`, `leave`, `admin`) (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>channel</strong> : Salon à définir (type : salon, obligatoire)</li>
+                </ul>
+            </div>
+    
+            <div class="command user">
+                <h4>/lol-stats</h4>
+                <p><strong>Description :</strong> Voir vos statistiques RANKED sur League of Legends.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>pseudo</strong> : Pseudo du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>tag</strong> : Tag du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>type</strong> : Choix entre `SOLO/DUO` ou `FLEX` (type : chaîne de caractères, obligatoire)</li>
+                </ul>
+            </div>
+    
+            <div class="command user">
+                <h4>/lol-game-stats</h4>
+                <p><strong>Description :</strong> Voir vos 5 derniers matchs sur League of Legends.</p>
+                <p><strong>Paramètres :</strong></p>
+                <ul>
+                    <li><strong>pseudo</strong> : Pseudo du joueur (type : chaîne de caractères, obligatoire)</li>
+                    <li><strong>tag</strong> : Tag du joueur (type : chaîne de caractères, obligatoire)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+
+    <footer>
+        <p>© 2024 4Tip Discord Bot - Développé par <a href="https://discord.com/users/kc_pandawan" target="_blank">@kc_pandawan</a></p>
+    </footer>
+</body>
+</html>

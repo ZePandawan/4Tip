@@ -50,7 +50,8 @@ const commands = [
                     { name: 'welcome', value: 'welcome' },
                     { name: 'stream', value: 'stream' },
                     { name: 'leave', value: 'leave' },
-                    { name: 'admin', value: 'admin' }
+                    { name: 'admin', value: 'admin' },
+                    { name: 'xp', value: 'xp' }
                 )
                 .setRequired(true))
         .addChannelOption(option =>
@@ -86,6 +87,14 @@ const commands = [
         .addStringOption(option =>
             option.setName('tag')
                 .setDescription('Tag du joueur')
+                .setRequired(true)),
+
+    new SlashCommandBuilder().setName('create-rules')
+        .setDescription('Créer les règles du serveur')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addRoleOption(option =>
+            option.setName('role')
+                .setDescription('Rôle à donner pour accepter les règles')
                 .setRequired(true))
 ]
     .map(command => command.toJSON());

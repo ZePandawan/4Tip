@@ -72,6 +72,7 @@ exports.run = async (client, interaction) => {
             const embed = {
                 color: win ? 0x00ff00 : 0xff0000, // Green for win, red for loss
                 title: `Match ${match} de ${username}#${tag}`,
+                description: "*Pour plus d'informations, exécutez la commande `/lol-match-details`*",
                 fields: [
                     { name: 'Champion', value: `${championName}`, inline: true },
                     { name: 'KDA', value: `${kills}/${deaths}/${assists}`, inline: true },

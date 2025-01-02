@@ -5,12 +5,14 @@ const { token, twitchClientId, twitchClientSecret  } = require("../Config/config
 const fs = require("fs");
 const {checkAdmin, getChannelId, createDatabase} = require("./functions");
 const { checkStreamerStatus } = require('./check-streamer-status');
+const { addXP } = require('./add-xp');
 
 
 const statuses = [
-    { name: "MazaStream.fr", type: ActivityType.Watching },
-    { name: "twitch.tv/russfx_", type: ActivityType.Watching },
-    { name: "twitch.tv/zepandawan", type: ActivityType.Watching }
+    //{ name: "MazaStream.fr", type: ActivityType.Watching },
+    //{ name: "twitch.tv/russfx_", type: ActivityType.Watching },
+    { name: "twitch.tv/zepandawan", type: ActivityType.Watching },
+    { name: "son code", type: ActivityType.Watching }
 ];
 let count_status = 0;
 
@@ -76,10 +78,37 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+client.on('interactionCreate', async interaction => {
+    if (interaction.isButton()) {
+        if (interaction.customId.startsWith('accept-rules')) {
+            const customId = interaction.customId;
+            const roleId = customId.split('-')[2];
+            const role = interaction.member.guild.roles.cache.get(roleId);
+            try{
+                await interaction.member.roles.add(role);
+            }
+            catch (error){
+                console.error("Erreur lors de l'ajout du rôle", error);
+            }
+            
+            let e1 = new EmbedBuilder()
+                .setDescription(`Vous avez accepté les règles et obtenu le rôle ${role} !`)
+            await interaction.reply({ embeds: [e1], ephemeral: true })
+        }
+    }
+})
+
 // FR : Dès que le bot rejoint un serveur, on crée la base de données
 // EN : When the bot joins a server, we create the database
 client.on('guildCreate', guild => {
     createDatabase(guild.id);
+});
+
+
+
+client.on("messageCreate", async message => {
+    if (message.author.bot) return;
+    addXP(message.author.id, message.guild.id, client);
 });
 
 // FR : Connexion à Discord grâce au token de notre client
