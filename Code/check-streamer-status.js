@@ -12,7 +12,7 @@ function checkStreamerStatus(client){
     Guilds.forEach(guild => {
         // On vérifie si la guilde a un channel de stream défini
         const fileName = `./Code/database/${guild}.json`;
-        const data = JSON.parse(fs.readFileSync(fileName, 'utf-8'));
+        const data = fs.readFileSync(fileName, 'utf-8');
         if (!data.channels || !data.channels[0] || !data.channels[0].stream) {
             return;
         }
@@ -44,7 +44,7 @@ function checkStreamerStatus(client){
 // Fonction qui va retourner la liste des streamers à checker pour une guilde donnée (ou 0 si aucun streamer)
 function checkStreamerForThisGuild(guildId){
     const fileName = `./Code/database/${guildId}.json`;
-    const data = JSON.parse(fs.readFileSync(fileName, 'utf-8'));
+    const data = fs.readFileSync(fileName, 'utf-8');
 
     const streamers = data.streamNotif;
     if (streamers.length === 0) {
@@ -75,7 +75,7 @@ async function checkStreamer(streamerId){
 // Fonction qui va envoyer une notification de début ou de fin de stream
 async function sendNotification(client, streamInfo, type, guildId){
     const fileName = `./Code/database/${guildId}.json`;
-    const data = JSON.parse(fs.readFileSync(fileName, 'utf-8'));
+    const data = fs.readFileSync(fileName, 'utf-8');
     const channelId = data.channels[0].stream;
 
     // Si c'est un début de stream

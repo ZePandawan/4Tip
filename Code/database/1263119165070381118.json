@@ -21,12 +21,12 @@
     {
       "id": "27115917",
       "streamerName": "Kamet0",
-      "isStreaming": false
+      "isStreaming": true
     },
     {
       "id": "134931596",
       "streamerName": "ChezBubulle",
-      "isStreaming": true
+      "isStreaming": false
     }
   ]
 }
