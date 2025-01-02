@@ -77,7 +77,7 @@ function getChannelId(channel_type, guildId) {
 }
 
 function checkOrAddUserInPokemonDB(userId){
-    const data = fs.readFileSync(pokemonFile, "utf8");
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const isUser = data.pokemon_list.find(user => user.user_id === userId);
     let result;
     //isUser ? result = true : result = false;
@@ -94,7 +94,7 @@ function checkOrAddUserInPokemonDB(userId){
 }
 
 function checkTimestampPokemon(userId){
-    const data = fs.readFileSync(pokemonFile, "utf8");
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const actualTimestampInDB = data.pokemon_list.find(user => user.user_id === userId).last_use;
     const result = actualTimestampInDB <  (Date.now()- 2 * 60 * 60 * 1000);
     let remainingTime;
@@ -129,7 +129,7 @@ function APIRequest(url) {
 
 
 function AddPokemonToUser(userId, pokemonId){
-    const data = fs.readFileSync(pokemonFile, "utf8");
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const userData = data.pokemon_list.find(user => user.user_id === userId);
     let pokemonDB = userData.pokemons.find(pokemon => pokemon.id === pokemonId);
     console.log(pokemonDB);
@@ -151,7 +151,7 @@ function AddPokemonToUser(userId, pokemonId){
 }
 
 function getUserPokemon(userId){
-    const data = fs.readFileSync(pokemonFile, "utf8");
+    const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     return data.pokemon_list.find(user => user.user_id === userId).pokemons;
 }
 
@@ -168,8 +168,7 @@ function createDatabase(guildId){
         const data = {
             warns: [],
             channels: [],
-            streamNotif: [],
-            xp: []
+            streamNotif: []
         }
         
         //Enregistrer dans un fichier JSON qui a la nom de la guilde
