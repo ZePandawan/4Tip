@@ -12,16 +12,20 @@ const commands = [
         .setRequired(true))
         .addStringOption(option =>
             option.setName('raison')
-            .setDescription('Raison du warn')),
+            .setDescription('Raison du warn'))
+    ,
     
     new SlashCommandBuilder().setName('pokemon')
-        .setDescription('Attrapez les tous !'),
+        .setDescription('Attrapez les tous !')
+    ,
+
     new SlashCommandBuilder().setName('poke-inventory')
         .setDescription('Regarde ton inventaire !')
         .addNumberOption(option =>
             option.setName('page')
                 .setDescription('Page de l\'inventaire à afficher'))                
     ,
+
     new SlashCommandBuilder().setName('add-streamer')
         .setDescription('Ajouter un streamer à la liste des streamers à suivre')
         .addStringOption(option =>
@@ -30,6 +34,7 @@ const commands = [
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
+
     new SlashCommandBuilder().setName('remove-streamer')
         .setDescription('Supprime un streamer de la liste des streamers à suivre')
         .addStringOption(option =>
@@ -38,9 +43,11 @@ const commands = [
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
+
     new SlashCommandBuilder().setName('list-streamer')
         .setDescription('Affiche la liste des streamers à suivre')
     ,
+
     new SlashCommandBuilder().setName("define-channel")
         .setDescription('Définir les salons pour les messages du bot')
         .addStringOption(option =>
@@ -60,6 +67,7 @@ const commands = [
                 .setRequired(true))
         //.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
+
     new SlashCommandBuilder().setName('lol-stats')
         .setDescription('Montre tes stats RANKED sur League of Legends')
         .addStringOption(option =>
@@ -77,7 +85,9 @@ const commands = [
                     { name: 'SOLO/DUO', value: 'solo' },
                     { name: 'FLEX', value: 'flex' }
                 )
-                .setRequired(true)),
+                .setRequired(true))
+    ,
+
     new SlashCommandBuilder().setName('lol-game-stats')
         .setDescription('Montre tes 5 derniers matchs sur League of Legends')
         .addStringOption(option =>
@@ -87,7 +97,8 @@ const commands = [
         .addStringOption(option =>
             option.setName('tag')
                 .setDescription('Tag du joueur')
-                .setRequired(true)),
+                .setRequired(true))
+    ,
 
     new SlashCommandBuilder().setName('create-rules')
         .setDescription('Créer les règles du serveur')
