@@ -58,7 +58,8 @@ const commands = [
                     { name: 'stream', value: 'stream' },
                     { name: 'leave', value: 'leave' },
                     { name: 'admin', value: 'admin' },
-                    { name: 'xp', value: 'xp' }
+                    { name: 'xp', value: 'xp' },
+                    { name: 'lolTracker', value: 'lolTracker' }
                 )
                 .setRequired(true))
         .addChannelOption(option =>
@@ -90,6 +91,18 @@ const commands = [
 
     new SlashCommandBuilder().setName('lol-game-stats')
         .setDescription('Montre tes 5 derniers matchs sur League of Legends')
+        .addStringOption(option =>
+            option.setName('pseudo')
+                .setDescription('Pseudo du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('Tag du joueur')
+                .setRequired(true))
+    ,
+
+    new SlashCommandBuilder().setName('add-lol-tracker')
+        .setDescription('Ajouter un joueur de lol à la liste des joueurs à suivre')
         .addStringOption(option =>
             option.setName('pseudo')
                 .setDescription('Pseudo du joueur')

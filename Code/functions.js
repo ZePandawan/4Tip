@@ -168,7 +168,8 @@ function createDatabase(guildId){
         const data = {
             warns: [],
             channels: [],
-            streamNotif: []
+            streamNotif: [],
+            lolTracker: []
         }
         
         //Enregistrer dans un fichier JSON qui a la nom de la guilde
