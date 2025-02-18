@@ -96,12 +96,12 @@ function checkOrAddUserInPokemonDB(userId){
 function checkTimestampPokemon(userId){
     const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const actualTimestampInDB = data.pokemon_list.find(user => user.user_id === userId).last_use;
-    const result = actualTimestampInDB <  (Date.now()- 2 * 60 * 60 * 1000);
+    const result = actualTimestampInDB <  (Date.now()- 1 * 60 * 60 * 1000);
     let remainingTime;
     if(result){
         remainingTime = 0;
     }else{
-        remainingTime = 2 * 60 * 60 * 1000 - (Date.now() - actualTimestampInDB);
+        remainingTime = 1 * 60 * 60 * 1000 - (Date.now() - actualTimestampInDB);
     }
     return {result, remainingTime};
 }
