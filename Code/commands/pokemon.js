@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => {
 
         const data = APIRequest(`https://tyradex.vercel.app/api/v1/pokemon/${id}`).then(async data => {
             console.log(data);
-            AddPokemonToUser(userId, data.pokedexId);
+            AddPokemonToUser(userId, data.pokedex_id);
 
             const pokeEmbed = new EmbedBuilder()
                 .setColor(0x0099FF)

@@ -6,6 +6,7 @@ const fs = require("fs");
 const {checkAdmin, getChannelId, createDatabase} = require("./functions");
 const { checkStreamerStatus } = require('./check-streamer-status');
 const { addXP } = require('./add-xp');
+const { checkNewGame } = require('./lol-tracker');
 
 
 const statuses = [
@@ -43,7 +44,17 @@ client.once('ready',() => {
     setInterval(() => {
         checkStreamerStatus(client);
     }, 60000);
-    
+
+    /*
+    setInterval(() => {
+        checkNewGame(client);
+    }, 120000);
+    */
+
+    setInterval(() => {
+        checkNewGame(client);
+    }, 10000);
+
 
 
     // FR : Vérification des serveurs et création de la base de données si elle n'existe pas
