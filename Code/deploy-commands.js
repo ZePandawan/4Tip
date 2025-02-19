@@ -99,7 +99,7 @@ const commands = [
                 .setDescription('Tag du joueur')
                 .setRequired(true))
     ,
-
+    
     new SlashCommandBuilder().setName('create-rules')
         .setDescription('Créer les règles du serveur')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
