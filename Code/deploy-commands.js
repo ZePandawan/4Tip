@@ -66,7 +66,7 @@ const commands = [
             option.setName('channel')
                 .setDescription('Salon à définir')
                 .setRequired(true))
-        //.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
 
     new SlashCommandBuilder().setName('lol-stats')
@@ -103,6 +103,18 @@ const commands = [
 
     new SlashCommandBuilder().setName('add-lol-tracker')
         .setDescription('Ajouter un joueur de lol à la liste des joueurs à suivre')
+        .addStringOption(option =>
+            option.setName('pseudo')
+                .setDescription('Pseudo du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('Tag du joueur')
+                .setRequired(true))
+    ,
+
+    new SlashCommandBuilder().setName('remove-lol-tracker')
+        .setDescription('Retire un joueur de lol à la liste des joueurs à suivre')
         .addStringOption(option =>
             option.setName('pseudo')
                 .setDescription('Pseudo du joueur')

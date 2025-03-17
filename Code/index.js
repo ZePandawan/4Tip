@@ -53,7 +53,7 @@ client.once('ready',() => {
 
     setInterval(() => {
         checkNewGame(client);
-    }, 10000);
+    }, 60000);
 
 
 

@@ -30,14 +30,5 @@
       "isStreaming": false
     }
   ],
-  "lolTracker": [
-    {
-      "puuid": "lARl9yraYNiFvuo9RNlIk00dvNbbAjtbAUYBTuu9AOpzdRHaPaG6d5arWY9Z8uzPNnd9CSYKtizsGQ",
-      "playerName": "KC P4ND4W4N",
-      "tag": "KCORP",
-      "rank": "SILVER IV",
-      "LP": 24,
-      "lastGame": "EUW1_7305945491"
-    }
-  ]
+  "lolTracker": []
 }
