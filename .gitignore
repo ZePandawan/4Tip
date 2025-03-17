@@ -1,4 +1,5 @@
 node_modules/
 Config/
 Code/database/*
-!Code/database/list_pokemon_users.json
+Code/database/list_pokemon_users.json
+
