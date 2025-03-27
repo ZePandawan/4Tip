@@ -14,7 +14,6 @@ exports.run = async (client, interaction) => {
         const isShiny = shinyRandom === 0;
         
         const data = APIRequest(`https://tyradex.vercel.app/api/v1/pokemon/${id}`).then(async data => {
-            console.log(data);
             AddPokemonToUser(userId, data.pokedex_id, data.name.fr, isShiny);
             let pokeEmbed;
 
@@ -39,7 +38,7 @@ exports.run = async (client, interaction) => {
         });
     }else{
         const pokeEmbed = new EmbedBuilder()
-            .setColor(0xFF9900)
+            .setColor(0xFF0000)
             .setTitle('POKEMON 4TIP')
             .addFields({name: `Dresseur ${interaction.user.displayName}`, value: `Tu ne peux pas encore capturer un pokemon ! \nTemps restant : ${TsInDate.getHours()-1}h ${TsInDate.getMinutes()}min ${TsInDate.getSeconds()}s`})
             .setTimestamp()

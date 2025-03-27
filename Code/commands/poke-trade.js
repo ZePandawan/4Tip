@@ -6,40 +6,39 @@ exports.run = async (client, interaction) => {
     const firstDresseur = interaction.user;
     const secondDresseur = interaction.options.getMentionable('dresseur');
     const guildId = interaction.guildId;
-
-    // Récupération des données de la base de données du serveur
-    const dbFile = `./Code/database/list_pokemon_users.json`;
-    const data = JSON.parse(fs.readFileSync(dbFile, "utf-8"));
-
-    const listPokemon = getUserPokemon(firstDresseur.id);
-
-    // Utilisation de Promise.all pour attendre toutes les requêtes API
-    const userInventory = [];
-    const apiRequests = listPokemon.map(async pokemon => {
-        const api_result = await APIRequest(`https://tyradex.vercel.app/api/v1/pokemon/${pokemon.id}`);
-        userInventory.push({ "id": pokemon.id, "name": api_result.name.fr, "quantity": pokemon.quantity });
+    const dbFile = `./Code/database/${guildId}.json`;
+    
+    
+    
+    
+    const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+    
+    // Initialiser la section poketrades si elle n'existe pas
+    if (!data.poketrades) {
+        data.poketrades = [];
+    }
+    
+    // Générer un nouvel ID pour l'échange
+    const tradeId = Date.now().toString();
+    
+    // Ajouter l'échange à la base de données
+    data.poketrades.push({
+        trade_id: tradeId,
+        channel_id: interaction.channel.id,
+        user1: firstDresseur.id,
+        user2: secondDresseur.id,
+        pokemon1: null,
+        pokemon2: null,
+        status: 'in_progress'
     });
-
-    // Attente de la fin de toutes les requêtes API
-    await Promise.all(apiRequests);
-
-    console.log(userInventory);
-    /*
-    const selectMenu = new StringSelectMenuBuilder()
-                .setCustomId('select_pokemon')
-                .setPlaceholder('Choisissez un Pokémon')
-                .addOptions(userInventory.map(pokemon => ({
-                    label: `Pokémon ID ${pokemon.id} : ${pokemon.name} x${pokemon.quantity}`,
-                    value: `${pokemon.id}`
-                })));
-            
-    const row = new ActionRowBuilder().addComponents(selectMenu);
-
-    await interaction.reply({ content: `Choisissez un Pokémon à échanger avec ${targetUser}`, components: [row] });
-    */
+    
+    // Sauvegarder la base de données
+    fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+    
+    
     const modal = new ModalBuilder()
-        .setCustomId(`modal_pokemon_${interaction.channel.id}`)
-        .setTitle('Choisir un Pokémon à échanger');
+        .setCustomId(`modal_pokemon_${guildId}_${tradeId}`)
+        .setTitle(`Choisissez un Pokémon à échanger`);
 
     const pokemonInput = new TextInputBuilder()
         .setCustomId('pokemon_name')
@@ -47,9 +46,8 @@ exports.run = async (client, interaction) => {
         .setStyle(1);
         //.setRequired(true);
 
-        const firstActionRow = new ActionRowBuilder().addComponents(pokemonInput);
+    const firstActionRow = new ActionRowBuilder().addComponents(pokemonInput);
 
     modal.addComponents(firstActionRow);
-
     await interaction.showModal(modal);
 };

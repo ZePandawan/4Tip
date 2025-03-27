@@ -1,9 +1,9 @@
 // FR : Ajout de la classe discord.js dans mon répertoire + de mon token dans mon fichier config.json
 // EN : Require the necessary discord.js classes
-const { Client, Intents, GatewayIntentBits, Collection, MessageMentions, GuildMemberManager, EmbedBuilder, Activity, ActivityType} = require('discord.js');
+const { Client, Intents, GatewayIntentBits, Collection, MessageMentions, GuildMemberManager, EmbedBuilder, Activity, ActivityType, ActionRowBuilder, ButtonBuilder} = require('discord.js');
 const { token, twitchClientId, twitchClientSecret  } = require("../Config/config.json");
 const fs = require("fs");
-const {checkAdmin, getChannelId, createDatabase} = require("./functions");
+const {checkAdmin, getChannelId, createDatabase, getUserPokemon} = require("./functions");
 const { checkStreamerStatus } = require('./check-streamer-status');
 const { addXP } = require('./add-xp');
 const { checkNewGame } = require('./lol-tracker');
@@ -106,8 +106,191 @@ client.on('interactionCreate', async interaction => {
                 .setDescription(`Vous avez accepté les règles et obtenu le rôle ${role} !`)
             await interaction.reply({ embeds: [e1], ephemeral: true })
         }
+        if (interaction.customId.startsWith('poketrade')) {
+            const id = interaction.customId.split("_");
+            const tradeId = id[2];
+            const guildId = id[3];
+
+            if(id[1] === "accept"){
+                const modal = new ModalBuilder()
+                    .setCustomId(`finish_modal_pokemon_${guildId}_${tradeId}`)
+                    .setTitle(`Choisissez un Pokémon à échanger`);
+                
+                const pokemonInput = new TextInputBuilder()
+                    .setCustomId('pokemon_name')
+                    .setLabel('Entrez le nom du Pokémon')
+                    .setStyle(1);
+                        
+                
+                const firstActionRow = new ActionRowBuilder().addComponents(pokemonInput);
+                modal.addComponents(firstActionRow);
+                await interaction.showModal(modal);
+
+            }else{
+                const dbFile = `./Code/database/${guildId}.json`;
+                const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+
+                const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+                dataTrade.status = "canceled";
+                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+            }
+        }
+
+        if (interaction.customId.startsWith('finish_poketrade')) {
+            const id = interaction.customId.split("_");
+            const tradeId = id[3];
+            const guildId = id[4];
+
+            const dbFile = `./Code/database/${guildId}.json`;
+            const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            if(id[2] === "accept"){
+                const user1 = dataTrade.user1;
+                const user2 = dataTrade.user2;
+
+                // Récupérer les Pokémon échangés
+                const pokemon1 = dataTrade.pokemon1;
+                const pokemon2 = dataTrade.pokemon2;
+
+                // Mettre à jour les listes de Pokémon des dresseurs
+                const user1PokeList = getUserPokemon(user1);
+                const user2PokeList = getUserPokemon(user2);
+
+                const quantityPoke1 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
+                const quantityPoke2 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
+
+                if(quantityPoke1 == 1){
+                    
+                }
+
+
+
+
+
+
+
+            }else{
+                const dbFile = `./Code/database/${guildId}.json`;
+                const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+
+                const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+                dataTrade.status = "canceled";
+                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+            }
+        }
+
     }
-})
+
+    if(interaction.isModalSubmit()){
+        if(interaction.customId.startsWith('modal_pokemon')){
+            const pokeName = interaction.fields.getTextInputValue('pokemon_name');
+            const id = interaction.customId.split("_");
+            
+            const guildId = id[2];
+            const tradeId = id[3];
+
+            const dbFile = `./Code/database/${guildId}.json`;
+            const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+
+            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            const sourceDresseur = dataTrade.user1;
+            const targetDresseur = dataTrade.user2;
+
+            const sourcePokeList = getUserPokemon(sourceDresseur);
+            const doesUserHasPokemon = sourcePokeList.find(pokemon => pokemon.name === pokeName);
+            console.log(doesUserHasPokemon);
+
+            if(doesUserHasPokemon){
+                const pokeTradeEmbed = {
+                    color: 0x0099ff,
+                    title: 'POKETRADE',
+                    fields: [
+                        {
+                            name: `Vous allez échanger ${pokeName}.`,
+                            value: `<@${targetDresseur}> acceptez-vous cet échange ?`,
+                        }
+                    ],
+                    timestamp: new Date(),
+                };
+
+                dataTrade.pokemon1 = pokeName;
+                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+
+                const yes_id = `poketrade_accept_${tradeId}_${guildId}`;
+                const no_id = `poketrade_refuse_${tradeId}_${guildId}`;
+                const row = new ActionRowBuilder()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId(yes_id)
+                                .setLabel('Accepter')
+                                .setStyle(3))
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId(no_id)
+                                .setLabel('Refuser')
+                                .setStyle(4),);
+
+                interaction.reply({embeds: [pokeTradeEmbed], components: [row]});
+            }else{
+                interaction.reply(`Vous n'avez pas ce pokémon ! N'essayez pas de tricher :angry:`)
+            }
+        }
+
+        if(interaction.customId.startsWith('finish_modal_pokemon')){
+            const pokeName = interaction.fields.getTextInputValue('pokemon_name');
+            const id = interaction.customId.split("_");
+            
+            const guildId = id[3];
+            const tradeId = id[4];
+
+            const dbFile = `./Code/database/${guildId}.json`;
+            const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+
+            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            const sourceDresseur = dataTrade.user1;
+            const targetDresseur = dataTrade.user2;
+
+            const sourcePokeList = getUserPokemon(sourceDresseur);
+            const doesUserHasPokemon = sourcePokeList.find(pokemon => pokemon.name === pokeName);
+            console.log(doesUserHasPokemon);
+
+            if(doesUserHasPokemon){
+                const pokeTradeEmbed = {
+                    color: 0x0099ff,
+                    title: 'POKETRADE',
+                    fields: [
+                        {
+                            name: `Vous allez échanger ${pokeName}.`,
+                            value: `<@${targetDresseur}> acceptez-vous cet échange ?`,
+                        }
+                    ],
+                    timestamp: new Date(),
+                };
+
+                dataTrade.pokemon2 = pokeName;
+                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+
+                const yes_id = `finish_poketrade_accept_${tradeId}_${guildId}`;
+                const no_id = `finish_poketrade_refuse_${tradeId}_${guildId}`;
+                const row = new ActionRowBuilder()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId(yes_id)
+                                .setLabel('Accepter')
+                                .setStyle(3))
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId(no_id)
+                                .setLabel('Refuser')
+                                .setStyle(4),);
+
+                interaction.reply({embeds: [pokeTradeEmbed], components: [row]});
+            }else{
+                interaction.reply(`Vous n'avez pas ce pokémon ! N'essayez pas de tricher :angry:`)
+            }
+        }
+    }
+});
 
 // FR : Dès que le bot rejoint un serveur, on crée la base de données
 // EN : When the bot joins a server, we create the database

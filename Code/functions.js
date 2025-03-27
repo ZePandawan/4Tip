@@ -152,7 +152,7 @@ function AddPokemonToUser(userId, pokemonId, pokemonName, isShiny) {
     fs.writeFileSync(pokemonFile, updatedData);
 }
 
-function getUserPokemon(userId, isShiny) {
+function getUserPokemon(userId, isShiny = false) {
     const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const pokeListKey = isShiny ? "shiny_pokemons" : "regular_pokemons";
     const userData = data.pokemon_list.find(user => user.user_id === userId);
