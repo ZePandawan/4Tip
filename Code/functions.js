@@ -84,7 +84,9 @@ function checkOrAddUserInPokemonDB(userId){
     if(!isUser){
         const newUser = {
             "user_id" : `${userId}`,
-            "pokemons": [],
+            "pokemons": [
+
+            ],
             "last_use": 0
         }
         data.pokemon_list.push(newUser);
@@ -128,31 +130,34 @@ function APIRequest(url) {
 }
 
 
-function AddPokemonToUser(userId, pokemonId){
+function AddPokemonToUser(userId, pokemonId, pokemonName, isShiny) {
     const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const userData = data.pokemon_list.find(user => user.user_id === userId);
-    let pokemonDB = userData.pokemons.find(pokemon => pokemon.id === pokemonId);
-    console.log(pokemonDB);
-    if(pokemonDB)
-    {
+
+    let pokemonList = isShiny ? userData.shiny_pokemons : userData.regular_pokemons;
+    let pokemonDB = pokemonList.find(pokemon => pokemon.id === pokemonId);
+
+    if (pokemonDB) {
         pokemonDB.quantity += 1;
-    }
-    else{
+    } else {
         let newPokemon = {
-            "id":pokemonId,
+            "id": pokemonId,
+            "name": pokemonName,
             "quantity": 1
-        }
-        userData.pokemons.push(newPokemon);
+        };
+        pokemonList.push(newPokemon);
     }
 
     userData.last_use = new Date().getTime();
-    const updatedData= JSON.stringify(data, null, 2);
+    const updatedData = JSON.stringify(data, null, 2);
     fs.writeFileSync(pokemonFile, updatedData);
 }
 
-function getUserPokemon(userId){
+function getUserPokemon(userId, isShiny) {
     const data = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
-    return data.pokemon_list.find(user => user.user_id === userId).pokemons;
+    const pokeListKey = isShiny ? "shiny_pokemons" : "regular_pokemons";
+    const userData = data.pokemon_list.find(user => user.user_id === userId);
+    return userData ? userData[pokeListKey] : null;
 }
 
 function checkDatabaseExist(guildId){
