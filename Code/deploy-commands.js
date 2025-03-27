@@ -113,6 +113,18 @@ const commands = [
                 .setRequired(true))
     ,
 
+    new SlashCommandBuilder().setName('remove-lol-tracker')
+        .setDescription('Retire un joueur de lol à la liste des joueurs à suivre')
+        .addStringOption(option =>
+            option.setName('pseudo')
+                .setDescription('Pseudo du joueur')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('Tag du joueur')
+                .setRequired(true))
+    ,
+
     new SlashCommandBuilder().setName('create-rules')
         .setDescription('Créer les règles du serveur')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
@@ -120,6 +132,8 @@ const commands = [
             option.setName('role')
                 .setDescription('Rôle à donner pour accepter les règles')
                 .setRequired(true))
+    ,
+    
 ]
     .map(command => command.toJSON());
 

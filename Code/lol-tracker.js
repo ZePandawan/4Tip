@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { riotApiKey  } = require("../Config/config.json");
 
+// Fonction pour vérifier les nouveaux matchs
 async function checkNewGame(client) {
   const Guilds = client.guilds.cache.map(guild => guild.id);
   for (const guild of Guilds) {

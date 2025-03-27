@@ -49,6 +49,38 @@ exports.run = async (client, interaction) => {
             }
 
             const matchData = await response.json();
+
+            let gameMode;
+            switch(matchData.info.gameMode){
+                case "CLASSIC":
+                if(matchData.info.queueId == "420"){
+                    gameMode = "Solo/Duo";
+                    break;
+                }
+                if(matchData.info.queueId == "440"){
+                    gameMode = "Flex";
+                    break;
+                }
+                gameMode = "Normal";
+                break;
+                case "ARAM":
+                gameMode = "ARAM";
+                break;
+                case "URF":
+                gameMode = "URF";
+                break;
+                case "ONEFORALL":
+                gameMode = "One for All";
+                break;
+                case "NEXUSBLITZ":
+                gameMode = "Nexus Blitz";
+                break;
+                case "TUTORIAL":
+                gameMode = "Tutorial";
+                break;
+            }
+
+
             const playerData = matchData.info.participants.find(
                 participant => participant.riotIdGameName === username && participant.riotIdTagline === tag
             );
@@ -74,10 +106,11 @@ exports.run = async (client, interaction) => {
                 title: `Match ${match} de ${username}#${tag}`,
                 description: "*Pour plus d'informations, exécutez la commande `/lol-match-details`*",
                 fields: [
+                    { name: 'Mode de jeu', value: gameMode, inline: true },
                     { name: 'Champion', value: `${championName}`, inline: true },
                     { name: 'KDA', value: `${kills}/${deaths}/${assists}`, inline: true },
                     { name: 'CS', value: totalMinionsKilled + neutralMinionsKilled , inline: true },
-                    { name: 'Victoire', value: win ? 'Oui' : 'Non', inline: true },
+                    { name: 'Résultat', value: win ? ':white_check_mark:' : ':x:', inline: true },
                 ],
                 thumbnail: {
                     url: championIconUrl

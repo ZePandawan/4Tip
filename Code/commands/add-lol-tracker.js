@@ -1,4 +1,3 @@
-const { twitchClientId, twitchClientSecret  } = require("../../Config/config.json");
 const fs = require("fs");
 const { riotApiKey } = require("../../Config/config.json");
 
