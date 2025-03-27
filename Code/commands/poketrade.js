@@ -52,23 +52,23 @@ exports.run = async (client, interaction) => {
             data.poketrades = [];
         }
 
-        // Ajouter l'échange à la base de données
-        data.poketrades.push({
-            user1: firstDresseur.id,
-            user2: secondDresseur.id,
-            pokemon1: pokemon,
-            pokemon2: null,
-            timestamp: Date.now()
-        });
-
-        // Sauvegarder la base de données
-        fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
-
+        
         const sourcePokeList = getUserPokemon(firstDresseur.id);
-        console.log(sourcePokeList);
         const doesUserHasPokemon = sourcePokeList.find(p => p.name === pokemon);
-
+        
         if (doesUserHasPokemon) {
+            // Ajouter l'échange à la base de données
+            data.poketrades.push({
+                user1: firstDresseur.id,
+                user2: secondDresseur.id,
+                pokemon1: pokemon,
+                pokemon2: null,
+                timestamp: Date.now()
+            });
+    
+            // Sauvegarder la base de données
+            fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+            
             const pokeTradeEmbed = {
                 color: 0x0099ff,
                 title: 'POKETRADE',

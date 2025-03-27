@@ -110,7 +110,7 @@ const commands = [
      * 
      * @param dresseur member to trade with
      */
-    new SlashCommandBuilder().setName('poke-trade')
+    new SlashCommandBuilder().setName('poketrade')
         .setDescription('Echange un pokemon avec un autre dresseur')
         .addMentionableOption(option =>
             option.setName('dresseur')

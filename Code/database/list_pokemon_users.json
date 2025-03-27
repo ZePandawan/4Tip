@@ -23598,10 +23598,15 @@
           "id": 565,
           "name": "Mégapagos",
           "quantity": 1
+        },
+        {
+          "id": 498,
+          "name": "Gruikui",
+          "quantity": 1
         }
       ],
       "shiny_pokemons": [],
-      "last_use": 1743095255754
+      "last_use": 1743102447537
     }
   ]
 }
