@@ -23590,6 +23590,18 @@
         }
       ],
       "shiny_pokemons": []
+    },
+    {
+      "user_id": "1168280321754660955",
+      "regular_pokemons": [
+        {
+          "id": 565,
+          "name": "Mégapagos",
+          "quantity": 1
+        }
+      ],
+      "shiny_pokemons": [],
+      "last_use": 1743095255754
     }
   ]
 }

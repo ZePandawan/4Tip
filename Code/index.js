@@ -106,33 +106,43 @@ client.on('interactionCreate', async interaction => {
                 .setDescription(`Vous avez accepté les règles et obtenu le rôle ${role} !`)
             await interaction.reply({ embeds: [e1], ephemeral: true })
         }
+        /*
         if (interaction.customId.startsWith('poketrade')) {
             const id = interaction.customId.split("_");
             const tradeId = id[2];
             const guildId = id[3];
+            const userInteraction = interaction.user.id;
+            const dbFile = `./Code/database/${guildId}.json`;
+            const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+            const tradeInfo = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            const tradeUserTarget = tradeInfo.user2;
+            
+            if(userInteraction === tradeUserTarget){
 
-            if(id[1] === "accept"){
-                const modal = new ModalBuilder()
+                if(id[1] === "accept"){
+                    const modal = new ModalBuilder()
                     .setCustomId(`finish_modal_pokemon_${guildId}_${tradeId}`)
                     .setTitle(`Choisissez un Pokémon à échanger`);
-                
-                const pokemonInput = new TextInputBuilder()
+                    
+                    const pokemonInput = new TextInputBuilder()
                     .setCustomId('pokemon_name')
                     .setLabel('Entrez le nom du Pokémon')
                     .setStyle(1);
-                        
-                
-                const firstActionRow = new ActionRowBuilder().addComponents(pokemonInput);
-                modal.addComponents(firstActionRow);
-                await interaction.showModal(modal);
-
+                    
+                    
+                    const firstActionRow = new ActionRowBuilder().addComponents(pokemonInput);
+                    modal.addComponents(firstActionRow);
+                    await interaction.showModal(modal);
+                    
+                }else{
+                    
+                    
+                    const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+                    dataTrade.status = "canceled";
+                    fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+                }
             }else{
-                const dbFile = `./Code/database/${guildId}.json`;
-                const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
-
-                const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
-                dataTrade.status = "canceled";
-                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+                return;
             }
         }
 
@@ -140,59 +150,71 @@ client.on('interactionCreate', async interaction => {
             const id = interaction.customId.split("_");
             const tradeId = id[3];
             const guildId = id[4];
-
+            const userInteraction = interaction.user.id;
             const dbFile = `./Code/database/${guildId}.json`;
             const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
             const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
-            if(id[2] === "accept"){
-                const user1 = dataTrade.user1;
-                const user2 = dataTrade.user2;
+            const user1 = dataTrade.user1;
+            const user2 = dataTrade.user2;
 
-                // Récupérer les Pokémon échangés
-                const pokemon1 = dataTrade.pokemon1;
-                const pokemon2 = dataTrade.pokemon2;
+            if(userInteraction === user1){
 
-                // Mettre à jour les listes de Pokémon des dresseurs
-                const user1PokeList = getUserPokemon(user1);
-                const user2PokeList = getUserPokemon(user2);
-
-                const quantityPoke1 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
-                const quantityPoke2 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
-
-                if(quantityPoke1 == 1){
+                if(id[2] === "accept"){
+                    /*
+                    // Récupérer les Pokémon échangés
+                    const pokemon1 = dataTrade.pokemon1;
+                    const pokemon2 = dataTrade.pokemon2;
                     
+                    // Mettre à jour les listes de Pokémon des dresseurs
+                    const user1PokeList = getUserPokemon(user1);
+                    const user2PokeList = getUserPokemon(user2);
+                    
+                    const quantityPoke1 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
+                    const quantityPoke2 = user1PokeList.find(pokemon => pokemon.name === pokemon1).quantity;
+                    
+                    if(quantityPoke1 == 1){
+                        
+                    }
+                    
+                    */
+                   /*
+                   await interaction.reply(`L'échange a été accepté entre <@${user1}> (${pokemon1}) et <@${user2}> (${pokemon2}) !`);
+                    
+                    
+                    
+                    
+                    
+                }else{
+                    const dbFile = `./Code/database/${guildId}.json`;
+                    const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+                    
+                    const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+                    dataTrade.status = "canceled";
+                    fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+
+                    await interaction.reply(`L'échange a été refusé !`);
                 }
-
-
-
-
-
-
-
-            }else{
-                const dbFile = `./Code/database/${guildId}.json`;
-                const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
-
-                const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
-                dataTrade.status = "canceled";
-                fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
-            }
+            }*/
         }
 
     }
 
-    if(interaction.isModalSubmit()){
+    /*if(interaction.isModalSubmit()){
         if(interaction.customId.startsWith('modal_pokemon')){
             const pokeName = interaction.fields.getTextInputValue('pokemon_name');
             const id = interaction.customId.split("_");
-            
+            console.log(interaction.customId);
             const guildId = id[2];
             const tradeId = id[3];
+            console.log(tradeId);
+
+            //console.log(guildId);
 
             const dbFile = `./Code/database/${guildId}.json`;
             const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
 
-            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id == tradeId);
+            console.log(dataTrade);
             const sourceDresseur = dataTrade.user1;
             const targetDresseur = dataTrade.user2;
 
@@ -246,7 +268,7 @@ client.on('interactionCreate', async interaction => {
             const dbFile = `./Code/database/${guildId}.json`;
             const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
 
-            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id === tradeId);
+            const dataTrade = data.poketrades.find(poketrade => poketrade.trade_id == tradeId);
             const sourceDresseur = dataTrade.user1;
             const targetDresseur = dataTrade.user2;
 
@@ -290,7 +312,9 @@ client.on('interactionCreate', async interaction => {
             }
         }
     }
-});
+*/
+);
+
 
 // FR : Dès que le bot rejoint un serveur, on crée la base de données
 // EN : When the bot joins a server, we create the database

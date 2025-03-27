@@ -116,6 +116,10 @@ const commands = [
             option.setName('dresseur')
                 .setDescription('Dresseur avec qui échanger')
                 .setRequired(true))
+        .addStringOption(option =>
+            option.setName('pokemon')
+                .setDescription('Pokemon à échanger')
+                .setRequired(true))
     ,
 
     /*###############################################################*/
