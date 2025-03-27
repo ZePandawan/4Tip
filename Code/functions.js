@@ -84,9 +84,8 @@ function checkOrAddUserInPokemonDB(userId){
     if(!isUser){
         const newUser = {
             "user_id" : `${userId}`,
-            "pokemons": [
-
-            ],
+            "regular_pokemons": [],
+            "shiny_pokemons": [],
             "last_use": 0
         }
         data.pokemon_list.push(newUser);
