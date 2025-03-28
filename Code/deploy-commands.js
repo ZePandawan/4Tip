@@ -101,7 +101,10 @@ const commands = [
                 .setRequired(true))              
         .addNumberOption(option =>
             option.setName('page')
-                .setDescription('Page de l\'inventaire à afficher'))  
+                .setDescription('Page de l\'inventaire à afficher'))
+        .addStringOption(option =>
+            option.setName('pokemon')
+                .setDescription('Affiche ce pokemon dans ton inventaire'))   
     ,
 
     /**
