@@ -65,7 +65,7 @@ client.once('ready',() => {
     
         // Save the updated data back to the file
         fs.writeFileSync(tradeFileName, JSON.stringify(tradeData, null, 2), "utf8");
-        console.log("Expired trades deleted.");
+        //console.log("Expired trades deleted.");
     }
     
     // Run the function every minute to check for expired trades
@@ -167,9 +167,7 @@ client.on('interactionCreate', async interaction => {
 
                 await interaction.reply({ embeds: [pokeTradeEmbed]});
             }
-            // Remove the trade from the database
-            tradeData.poketrades = tradeData.poketrades.filter(t => !(t.user1 === userAuthorized && t.user2 === otherUserTrade));
-            fs.writeFileSync(tradeFileName, JSON.stringify(tradeData, null, 2), "utf8");
+            
         }
     }
 });
