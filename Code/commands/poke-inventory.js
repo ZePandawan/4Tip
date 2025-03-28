@@ -5,6 +5,7 @@ const {getUserPokemon, APIRequest} = require("../functions");
 exports.run = async (client, interaction) => {
     const type = interaction.options.getString("type");
     const pokemonAsk = interaction.options.getString("pokemon");
+    const doublons = interaction.options.getBoolean("doublons");
     const isShiny = type === "shiny";
     const pokeList = getUserPokemon(interaction.user.id, isShiny);
     const page = interaction.options.getNumber("page");
@@ -15,7 +16,48 @@ exports.run = async (client, interaction) => {
     pokeList.length < start_index + page_size ? end_index = pokeList.length: end_index = start_index + page_size;
     const total_pages = Math.ceil(pokeList.length / page_size);
 
-    if(pokemonAsk){
+    if (doublons) {
+        // Filter the list to only include Pokémon with quantity greater than 1
+        const doublesList = pokeList.filter(pokemon => pokemon.quantity > 1);
+
+        if (doublesList.length === 0) {
+            const pokeEmbed = new EmbedBuilder()
+                .setColor(0x0099FF)
+                .setTitle('POKEMON 4TIP')
+                .addFields({ name: `Inventaire de ${interaction.user.displayName}`, value: `Vous n'avez pas de Pokémon en double.` })
+                .addFields({ name: "Pokedex :", value: `${pokeList.length}/1018` })
+                .setTimestamp()
+                .setFooter({ text: '4Tip' });
+            await interaction.reply({ embeds: [pokeEmbed] });
+            return;
+        }
+
+        // Paginate the doubles list
+        const doublesTotalPages = Math.ceil(doublesList.length / page_size);
+        const doublesStartIndex = (page - 1) * page_size;
+        let doublesEndIndex = 0;
+        doublesList.length < doublesStartIndex + page_size ? doublesEndIndex = doublesList.length : doublesEndIndex = doublesStartIndex + page_size;
+
+        if (page < 1 || page > doublesTotalPages) {
+            await interaction.reply(`Numéro de page incorrect, il doit être compris entre 1 et ${doublesTotalPages}`);
+            return;
+        }
+
+        for (let i = doublesStartIndex; i < doublesEndIndex; i++) {
+            inventory += `${doublesList[i].name} x${doublesList[i].quantity}\n`;
+        }
+
+        const pokeEmbed = new EmbedBuilder()
+            .setColor(0x0099FF)
+            .setTitle('POKEMON 4TIP')
+            .setDescription(`Page ${page}/${doublesTotalPages}`)
+            .addFields({ name: `Inventaire de ${interaction.user.displayName}`, value: `${inventory}` })
+            .addFields({ name: "Pokedex :", value: `${pokeList.length}/1018` })
+            .setTimestamp()
+            .setFooter({ text: '4Tip' });
+        await interaction.reply({ embeds: [pokeEmbed] });
+
+    } else if(pokemonAsk){
         const pokemonResult = pokeList.find(pokemon => pokemon.name == pokemonAsk);
         if(pokemonResult){
             const pokeEmbed = new EmbedBuilder()
