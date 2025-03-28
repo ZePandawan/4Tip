@@ -194,6 +194,11 @@ function tradePokemons(user1, user2){
     const tradeData = JSON.parse(fs.readFileSync(tradeFileName, "utf8"));
     const pokemonData = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
     const tradeInfo = tradeData.poketrades.find(trade => trade.user1 == user1 && trade.user2 == user2);
+    console.log(tradeInfo);
+    if (tradeInfo == undefined) {
+        console.error("Trade information not found.");
+        return 0;
+    }
     //const pokemonUser1 = tradeInfo.pokemon1;
     //const pokemonUser2 = tradeInfo.pokemon2;
 

@@ -138,7 +138,10 @@ client.on('interactionCreate', async interaction => {
             }
 
             if(isAccept){
-                tradePokemons(userAuthorized, otherUserTrade);
+                const result = tradePokemons(userAuthorized, otherUserTrade);
+                if(result == 0){
+                    return;
+                }
                 const pokeTradeEmbed = {
                     color: 0x0099ff,
                     title: 'POKETRADE',

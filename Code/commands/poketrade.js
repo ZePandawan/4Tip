@@ -10,6 +10,11 @@ exports.run = async (client, interaction) => {
     const pokemon = interaction.options.getString('pokemon');
     const guildId = interaction.guildId;
 
+    if(firstDresseur.id == secondDresseur.id){
+        await interaction.reply("Vous ne pouvez pas échanger avec vous même !");
+        return;
+    }
+
     const dbFile = `./Code/database/poketrades.json`;
     const data = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
 
