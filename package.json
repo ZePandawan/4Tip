@@ -13,7 +13,10 @@
     "@twurple/auth": "^7.2.0",
     "discord": "^0.8.2",
     "discord.js": "^14.18.0",
-    "fs": "^0.0.1-security"
+    "discordjs-v14-pagination": "^1.0.6",
+    "fs": "^0.0.1-security",
+    "mongoose": "^8.13.0",
+    "pagination.djs": "^4.0.18"
   },
   "keywords": []
 }
