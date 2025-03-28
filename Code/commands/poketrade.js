@@ -1,6 +1,8 @@
 const fs = require("fs");
 const { getUserPokemon, APIRequest } = require("../functions");
 const { time } = require("console");
+const { ActionRowBuilder, ButtonBuilder} = require('discord.js');
+
 
 exports.run = async (client, interaction) => {
     const firstDresseur = interaction.user;
@@ -20,7 +22,7 @@ exports.run = async (client, interaction) => {
     if (trade) {
         // Si un échange est en cours et que le pokemon2 est null, cela signifie que c'est au tour du second dresseur de choisir
         if (!trade.pokemon2) {
-            const sourcePokeList = getUserPokemon(secondDresseur.id);
+            const sourcePokeList = getUserPokemon(firstDresseur.id);
             const doesUserHasPokemon = sourcePokeList.find(p => p.name === pokemon);
 
             if (doesUserHasPokemon) {
@@ -33,13 +35,31 @@ exports.run = async (client, interaction) => {
                     title: 'POKETRADE',
                     fields: [
                         {
-                            name: `Échange finalisé!`,
-                            value: `<@${firstDresseur.id}> a échangé ${trade.pokemon1} contre ${pokemon} de <@${secondDresseur.id}>.`,
+                            name: `Échange Prêt !`,
+                            //value: `<@${secondDresseur.id}> a échangé ${trade.pokemon1} contre ${pokemon} de <@${firstDresseur.id}>.`,
+                            value: `<@${trade.user1}> acceptez vous d'échanger votre ${trade.pokemon1} contre le ${trade.pokemon2} de <@${trade.user2}> ?`,   
                         }
                     ],
                     timestamp: new Date(),
                 };
-                await interaction.reply({ embeds: [pokeTradeEmbed] });
+
+                const customIdAccept = `trade-accept-${trade.user1}-${trade.user2}`;
+                const customIdRefuse = `trade-refuse-${trade.user1}-${trade.user2}`;
+                const row = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId(customIdAccept)
+                        .setLabel('Accepter')
+                        .setStyle(3),
+                    )
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId(customIdRefuse)
+                        .setLabel('Refuser')
+                        .setStyle(4),
+                );
+                await interaction.reply({ embeds: [pokeTradeEmbed], components: [row] });
+
             } else {
                 await interaction.reply("Vous ne possédez pas ce Pokémon. N'essayez pas de tricher :angry:");
             }

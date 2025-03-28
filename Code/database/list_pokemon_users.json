@@ -2,7 +2,7 @@
   "pokemon_list": [
     {
       "user_id": "421999801685508107",
-      "last_use": 1743076415461,
+      "last_use": 1743149245148,
       "regular_pokemons": [
         {
           "id": 71,
@@ -1018,6 +1018,11 @@
           "id": 360,
           "quantity": 1,
           "name": "Okéoké"
+        },
+        {
+          "id": 498,
+          "name": "Gruikui",
+          "quantity": 1
         }
       ],
       "shiny_pokemons": [
@@ -23603,10 +23608,15 @@
           "id": 498,
           "name": "Gruikui",
           "quantity": 1
+        },
+        {
+          "id": 405,
+          "name": "Luxray",
+          "quantity": 1
         }
       ],
       "shiny_pokemons": [],
-      "last_use": 1743102447537
+      "last_use": 1743149346319
     }
   ]
 }

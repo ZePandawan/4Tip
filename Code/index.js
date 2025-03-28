@@ -3,7 +3,7 @@
 const { Client, Intents, GatewayIntentBits, Collection, MessageMentions, GuildMemberManager, EmbedBuilder, Activity, ActivityType, ActionRowBuilder, ButtonBuilder} = require('discord.js');
 const { token, twitchClientId, twitchClientSecret  } = require("../Config/config.json");
 const fs = require("fs");
-const {checkAdmin, getChannelId, createDatabase, getUserPokemon} = require("./functions");
+const {checkAdmin, getChannelId, createDatabase, getUserPokemon, tradePokemons} = require("./functions");
 const { checkStreamerStatus } = require('./check-streamer-status');
 const { addXP } = require('./add-xp');
 const { checkNewGame } = require('./lol-tracker');
@@ -55,6 +55,22 @@ client.once('ready',() => {
         checkNewGame(client);
     }, 60000);
 
+    function deleteExpiredTrades() {
+        const tradeFileName = `./Code/database/poketrades.json`;
+        const tradeData = JSON.parse(fs.readFileSync(tradeFileName, "utf8"));
+        const twoMinutesAgo = Date.now() - 2 * 60 * 1000; // 2 minutes in milliseconds
+    
+        // Filter out trades that are older than 2 minutes
+        tradeData.poketrades = tradeData.poketrades.filter(trade => trade.timestamp > twoMinutesAgo);
+    
+        // Save the updated data back to the file
+        fs.writeFileSync(tradeFileName, JSON.stringify(tradeData, null, 2), "utf8");
+        console.log("Expired trades deleted.");
+    }
+    
+    // Run the function every minute to check for expired trades
+    setInterval(deleteExpiredTrades, 30000); 
+
 
 
     // FR : Vérification des serveurs et création de la base de données si elle n'existe pas
@@ -105,6 +121,55 @@ client.on('interactionCreate', async interaction => {
             let e1 = new EmbedBuilder()
                 .setDescription(`Vous avez accepté les règles et obtenu le rôle ${role} !`)
             await interaction.reply({ embeds: [e1], ephemeral: true })
+        }
+        
+        if (interaction.customId.startsWith('trade-')) {
+            const customId = interaction.customId;
+            const tradeInfo = customId.split('-');
+            const isAccept = tradeInfo[1] === "accept";
+            const userAuthorized = tradeInfo[2];
+            const otherUserTrade = tradeInfo[3];
+            const tradeFileName = `./Code/database/poketrades.json`;
+            const tradeData = JSON.parse(fs.readFileSync(tradeFileName, "utf8"));
+            const trade = tradeData.poketrades.find(trade => trade.user1 == userAuthorized && trade.user2 == otherUserTrade);
+
+            if(interaction.user.id != userAuthorized){
+                return;
+            }
+
+            if(isAccept){
+                tradePokemons(userAuthorized, otherUserTrade);
+                const pokeTradeEmbed = {
+                    color: 0x0099ff,
+                    title: 'POKETRADE',
+                    fields: [
+                        {
+                            name: `Échange Effectué !`,
+                            value: `<@${userAuthorized}> a échangé ${trade.pokemon1} contre ${trade.pokemon2} de <@${otherUserTrade}>.`   
+                        }
+                    ],
+                    timestamp: new Date(),
+                };
+
+                await interaction.reply({ embeds: [pokeTradeEmbed]});
+            }else{
+                const pokeTradeEmbed = {
+                    color: 0x0099ff,
+                    title: 'POKETRADE',
+                    fields: [
+                        {
+                            name: `Échange Annulé !`,
+                            value: `L'échange entre <@${trade.user1}> et <@${trade.user2}> a été annulé !`,   
+                        }
+                    ],
+                    timestamp: new Date(),
+                };
+
+                await interaction.reply({ embeds: [pokeTradeEmbed]});
+            }
+            // Remove the trade from the database
+            tradeData.poketrades = tradeData.poketrades.filter(t => !(t.user1 === userAuthorized && t.user2 === otherUserTrade));
+            fs.writeFileSync(tradeFileName, JSON.stringify(tradeData, null, 2), "utf8");
         }
     }
 });

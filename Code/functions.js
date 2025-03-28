@@ -188,5 +188,63 @@ function createDatabase(guildId){
 }
 
 
+function tradePokemons(user1, user2){
+    const tradeFileName = `./Code/database/poketrades.json`;
+    const pokemonFile = "./Code/database/list_pokemon_users.json";
+    const tradeData = JSON.parse(fs.readFileSync(tradeFileName, "utf8"));
+    const pokemonData = JSON.parse(fs.readFileSync(pokemonFile, "utf8"));
+    const tradeInfo = tradeData.poketrades.find(trade => trade.user1 == user1 && trade.user2 == user2);
+    //const pokemonUser1 = tradeInfo.pokemon1;
+    //const pokemonUser2 = tradeInfo.pokemon2;
 
-module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser,getUserPokemon, createDatabase};
+    const pokemonsUser1 = pokemonData.pokemon_list.find(user => user.user_id === user1);
+    const pokemonsUser2 = pokemonData.pokemon_list.find(user => user.user_id === user2);
+
+    const pokemonUser1 = pokemonsUser1.regular_pokemons.find(pokemon => pokemon.name == tradeInfo.pokemon1);
+    const pokemonUser2 = pokemonsUser2.regular_pokemons.find(pokemon => pokemon.name == tradeInfo.pokemon2);
+
+    // Remove pokemonUser1 from user1 and add it to user2
+    if(pokemonUser1.quantity === 1){
+        pokemonsUser1.regular_pokemons = pokemonsUser1.regular_pokemons.filter(pokemon => pokemon.name !== tradeInfo.pokemon1);
+    }
+    else{
+        pokemonUser1.quantity -= 1;
+    }
+
+    const existingPokemonUser2 = pokemonsUser2.regular_pokemons.find(pokemon => pokemon.name === tradeInfo.pokemon1);
+    if (existingPokemonUser2) {
+        existingPokemonUser2.quantity += 1;
+    } else {
+        pokemonsUser2.regular_pokemons.push({ ...pokemonUser1, quantity: 1 });
+    }
+
+    //pokemonsUser2.regular_pokemons.push(pokemonUser1);
+    //AddPokemonToUser(user2,pokemonUser1.id,pokemonUser1.name, false);
+
+    // Remove pokemonUser2 from user2 and add it to user1
+    if(pokemonUser2.quantity === 1){
+        pokemonsUser2.regular_pokemons = pokemonsUser2.regular_pokemons.filter(pokemon => pokemon.name !== tradeInfo.pokemon2);
+    }
+    else{
+        pokemonUser2.quantity -= 1;
+    }
+
+    const existingPokemonUser1 = pokemonsUser1.regular_pokemons.find(pokemon => pokemon.name === tradeInfo.pokemon2);
+    if (existingPokemonUser1) {
+        existingPokemonUser1.quantity += 1;
+    } else {
+        pokemonsUser1.regular_pokemons.push({ ...pokemonUser2, quantity: 1 });
+    }
+
+    //pokemonsUser1.regular_pokemons.push(pokemonUser2);
+    //AddPokemonToUser(user1,pokemonUser2.id,pokemonUser2.name, false);
+
+    // Save the updated data back to the file
+    fs.writeFileSync(pokemonFile, JSON.stringify(pokemonData, null, 2), "utf8");
+    console.log("Trade completed successfully.");
+
+}
+
+
+
+module.exports = {checkAdmin, addWarn, checkWarn,getChannelId, checkOrAddUserInPokemonDB, checkTimestampPokemon, APIRequest, AddPokemonToUser,getUserPokemon, createDatabase, tradePokemons};
