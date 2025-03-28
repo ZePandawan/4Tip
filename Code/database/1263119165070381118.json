@@ -30,5 +30,16 @@
       "isStreaming": false
     }
   ],
-  "lolTracker": []
+  "lolTracker": [],
+  "poketrades": [
+    {
+      "trade_id": "1743097998261",
+      "channel_id": "1263119166303502360",
+      "user1": "421999801685508107",
+      "user2": "1123220557417160797",
+      "pokemon1": null,
+      "pokemon2": null,
+      "status": "in_progress"
+    }
+  ]
 }
