@@ -105,6 +105,9 @@ const commands = [
         .addStringOption(option =>
             option.setName('pokemon')
                 .setDescription('Affiche ce pokemon dans ton inventaire'))   
+        .addBooleanOption(option =>
+            option.setName('doublons')
+                .setDescription('Affiche les pokemons que vous possédez plusieurs fois')) 
     ,
 
     /**
