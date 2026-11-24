@@ -1,42 +1,24 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="Documentation officielle de 4Tip, bot Discord communautaire.">
-  <title>4Tip — Documentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Documentation technique de 4Tip, bot Discord communautaire.">
+<title>4Tip — Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <div class="app-shell">
-    <aside class="sidebar" id="sidebar">
-      <a class="brand" href="#overview" aria-label="4Tip accueil">
-        <span class="brand-mark">4</span><span>4Tip<span class="brand-sub">DOCUMENTATION</span></span>
-      </a>
-      <label class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Rechercher une commande…" autocomplete="off"></label>
-      <nav id="navigation" aria-label="Navigation principale"></nav>
-      <div class="sidebar-bottom">
-        <span class="status-dot"></span><span>Documentation communautaire</span>
-        <a href="https://github.com/ZePandawan/4Tip" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </div>
-    </aside>
-
-    <main class="main">
-      <header class="topbar">
-        <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">☰</button>
-        <div class="breadcrumbs"><span>4Tip</span><span>/</span><strong id="crumb">Vue d'ensemble</strong></div>
-        <a class="github-link" href="https://github.com/ZePandawan/4Tip" target="_blank" rel="noreferrer">Voir le dépôt <span>↗</span></a>
-      </header>
-      <article id="content" class="content" tabindex="-1"></article>
-      <footer class="footer"><span>4Tip · Documentation non officielle générée à partir du dépôt public</span><a href="https://github.com/ZePandawan/4Tip">Contribuer sur GitHub ↗</a></footer>
-    </main>
-  </div>
-  <div class="overlay" id="overlay"></div>
-  <script src="assets/data.js"></script>
-  <script src="assets/app.js"></script>
-</body>
-</html>
+<body><div class="shell">
+<aside class="sidebar" id="sidebar">
+<a class="brand" href="#overview"><span class="mark">4</span><span>4Tip<small>DOCUMENTATION</small></span></a>
+<label class="search"><span>⌕</span><input id="search" type="search" placeholder="Rechercher une commande…"></label>
+<nav id="nav"></nav>
+<div class="side-foot"><i></i> Documentation technique <a href="https://github.com/ZePandawan/4Tip" target="_blank" rel="noreferrer">Dépôt GitHub ↗</a></div>
+</aside>
+<main class="main">
+<header class="top"><button id="menu" aria-label="Ouvrir le menu">☰</button><div class="crumb">4Tip <span>/</span> <b id="crumb">Vue d'ensemble</b></div><a href="https://github.com/ZePandawan/4Tip" target="_blank" rel="noreferrer">Voir le dépôt ↗</a></header>
+<article id="content" class="content"></article>
+<footer>4Tip · Documentation basée sur le code du dépôt · <a href="https://github.com/ZePandawan/4Tip">Contribuer sur GitHub ↗</a></footer>
+</main></div><div class="overlay" id="overlay"></div>
+<script src="assets/data.js"></script><script src="assets/app.js"></script></body></html>
