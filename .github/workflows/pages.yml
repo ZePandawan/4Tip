@@ -9,6 +9,7 @@ name: Deploy documentation to GitHub Pages
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -31,9 +32,8 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Verify documentation files
+      - name: Verify documentation
         run: |
-          echo "Checking documentation directory..."
           ls -la ./docs
           test -f ./docs/index.html
 
