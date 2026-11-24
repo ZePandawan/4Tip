@@ -5,10 +5,6 @@ name: Deploy documentation to GitHub Pages
   push:
     branches:
       - master
-    paths:
-      - 'docs/**'
-      - '.github/workflows/pages.yml'
-
   workflow_dispatch:
 
 permissions:
@@ -22,11 +18,11 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -35,9 +31,16 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload documentation
+      - name: Verify documentation files
+        run: |
+          echo "Checking documentation directory..."
+          ls -la ./docs
+          test -f ./docs/index.html
+
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          name: github-pages
           path: ./docs
 
       - name: Deploy to GitHub Pages
